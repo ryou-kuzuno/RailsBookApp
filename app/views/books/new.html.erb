@@ -1,0 +1,19 @@
+<%= form_tag "/create" do %>
+  <div class="card">
+      <div>
+          <%= @book.thumbnail %>
+          <div class="card-right">
+            <p>作者名</p>
+            <input name="title">
+            <p>タイトル</p>
+            <input name="author">
+          </div>
+      </div>
+        <textarea class="card-textarea" name="story" ><%= @book.story%></textarea> 
+        <textarea class="card-textarea" name="impressions" ><%= @book.impressions%></textarea>
+        <div class="card-under">
+          <input type="submit" value="投稿">
+          
+        </div>
+  </div>
+<% end%>

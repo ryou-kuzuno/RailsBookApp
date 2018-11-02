@@ -1,0 +1,28 @@
+<header class="header">
+  <div class="header-div">
+    
+      <ul>
+        <li><%= link_to "感想を書く", "/new"%></li>
+        <li><%= link_to "新着一覧", "/" %></li>
+        <li><%= link_to "お気に入り・コメント" ,"#" %></li>
+        <li><%= link_to "ユーザーホーム", "/"%></li>
+        <li>
+          <a href="search" class="search">検索する</a>
+          <input type="search" >
+        </li>
+        <li>
+              <div class="accbox">
+                <label for="label1">設定</label>
+                <input type="checkbox" id="label1" class="cssacc" />
+                  <div class="accshow">
+                  <!--ここに隠す中身-->
+                    <div class="accshow-div">
+                      <%= link_to "ユーザー設定", "#"%>
+                      <p>hyu</p>
+                    </div>
+                  </div>
+              </div>
+        </li>
+      </ul>
+  </div>
+</header>

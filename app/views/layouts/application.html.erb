@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%# メモ：viewsのフォルダをrootとして、そこからのパスを指定する %>
+    <%= render partial: 'layouts/header' %>
+
+    <div class="content">
+    <%= yield %>
+    </div>
+
+    <%= render partial: 'layouts/footer' %>
+  </body>
+</html>

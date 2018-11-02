@@ -1,0 +1,22 @@
+<% @books.each do |book| %>
+<div class="card">
+    <div>
+      <%= book.thumbnail %>
+      <div class="card-right">
+      <%= book.title %>
+      <%= book.author %>
+      </div>
+    </div>
+      <%= book.story %>
+      <%= book.impressions %>
+  <div class="card-under">
+      <div>
+        <i class="material-icons hart">favorite</i>
+        <i class="material-icons speech">question_answer</i>
+      </div>
+    <div>
+      <%= link_to "詳細", "/show/#{book.id}"%>
+    </div>
+  </div>
+</div>
+<% end%>

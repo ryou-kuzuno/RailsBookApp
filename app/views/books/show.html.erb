@@ -1,0 +1,21 @@
+<div class="card">
+    <div>
+      <div class="card-img">画像</div>
+      <div class="card-right">
+      <h1><%= @book.author%></h1>
+      <h2><%= @book.title %></h2>
+      </div>
+    </div>
+      <p><%= @book.story %></p>
+      <p><%= @book.impressions %></p>
+      <div class="card-under">
+        <div >
+          <i class="material-icons hart">favorite</i>
+          <i class="material-icons speech">question_answer</i>
+        </div>
+        <div>
+        <%= link_to "編集", "/#{@book.id}/edit"%>
+        <%= link_to "戻る", "/"%>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<%= form_tag "/#{@book.id}/update", {multipart: true} do %>
+    <div class="card">
+            <% @book.errors.full_messages.each do |message| %>
+                <div class="form-error">
+                <%= message %>
+                </div>
+            <% end %>
+        <div class="text-div">
+            <textarea class ="story" name="story"><%= @book.story %></textarea>  
+            <textarea class ="impressions" name="impressions"><%= @book.impressions %></textarea>
+        </div>
+        <input type="submit" value="保存">
+    </div>
+<% end %>
