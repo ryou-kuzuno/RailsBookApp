@@ -13,9 +13,9 @@
       <div class="posts-index-item">
         <div class="post-right">
           <div class="post-user-name">
-            <%= link_to book.user.name, "/users/#{book.user.id}" %>
+            <%= link_to book.title, "/users/#{book.user.id}" %>
           </div>
-          <%= link_to book.content, "/show/#{book.id}" %>
+          <%= link_to book.author, "/show/#{book.id}" %>
         </div>
       </div>
     <% end %>
