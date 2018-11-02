@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+書籍管理を行うWebサービスです
 
-Things you may want to cover:
+## 動作要件
+* Ruby 2.5.1
+* Ruby on Rails 5.2
 
-* Ruby version
+**OS**
+* Windows7 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Database**
+* MySQL 5.7
