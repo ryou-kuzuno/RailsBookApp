@@ -10,8 +10,17 @@
       <p><%= @book.impressions %></p>
       <div class="card-under">
         <div >
-          <i class="material-icons hart">favorite</i>
-          <i class="material-icons speech">question_answer</i>
+        <% if Like.find_by(user_id: @current_user.id, book_id: @book.id) %>
+          <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
+            <span class="material-icons hart">favorite</span>
+          <% end %>
+        <% else %>
+          <%= link_to "/likes/#{@book.id}/create", {method: "post"}  do %>
+              <span class="material-icons hart">favorite</span>
+          <% end %>
+        <% end %>
+          <%= @likes_count %>
+          <span class="material-icons speech">question_answer</span>
         </div>
         <div>
         <%= link_to "編集", "/#{@book.id}/edit"%>

@@ -1,10 +1,13 @@
 class BooksController < ApplicationController
+    before_action :set_current_user
+
     def index
         @books =Bookstore.all.order(created_at: :desc)
     end
 
     def show
         @book = Bookstore.find_by(id: params[:id])
+        @likes_count = Like.where(book_id: @book.id).count
     end
 
     def new

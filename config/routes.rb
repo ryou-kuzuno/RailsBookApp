@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  post "likes/:post_page/create"  => "likes#create"
-  post "likes/:post_page/destroy" => "likes#destroy"
+  post "likes/:id/create"  => "likes#create"
+  post "likes/:id/destroy" => "likes#destroy"
   
   post "update/:id" => "users#update"#ユーザーの変更を反映
   get "users/:id/edit" => "users#edit" #ユーザー編集画面

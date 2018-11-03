@@ -16,9 +16,9 @@
       <div>
         <div>
           <div>
-            <%= link_to book.user.name, "/users/#{book.user.id}") %>
+            <%= link_to book.user.nicename, "#" %>
           </div>
-          <%= link_to book.content, "/show/#{book.id}" %>
+          <%= link_to book.title, "/show/#{book.id}" %>
         </div>
       </div>
     <% end %>
