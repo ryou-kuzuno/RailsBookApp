@@ -1,25 +1,20 @@
 class UsersController < ApplicationController
-    #before_action :authenticate_user, {only: [:index, :show, :edit, :update]}
-    #before_action :forbid_login_user, {only: [:new, :create, :login_form, :login]}
-    #before_action :ensure_correct_user, {only: [:edit, :update]}
-    
-    def index
-      @users = User.all
-    end
-    
+
+    before_action :ensure_correct_user, {only: [:edit, :update]}
+
     def show
       @user = User.find_by(id: params[:id])
     end
-    
+
     def new
       @user = User.new
     end
-    
+
     def create
       @user = User.new(
         nicename: params[:nicename],
         mail: params[:mail],
-        # image_name: "イメージ画像",
+        # thumbnail: "イメージ画像",
         password: params[:password]
       )
       if @user.save
@@ -52,7 +47,10 @@ class UsersController < ApplicationController
     end
     
     def login
-      @user = User.find_by(mail: params[:mail], password: params[:password])
+      @user = User.find_by(
+        mail: params[:mail], 
+        password: params[:password]
+      )
       if @user
         session[:user_id] = @user.id
         flash[:notice] = "ログインしました"

@@ -3,23 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
   .user-tabs {
-    margin-top: 40px;
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 0 2px 6px #c1ced7;
+          margin-top: 40px;
+          background-color: white;
+          overflow: hidden;
+          box-shadow: 0 2px 6px #c1ced7;
     li {
-        float: left;
+          float: left;
       }
     li.active {
-        border-bottom: 2px solid #3ecdc6;
-        a {
-            color: #57575f;
-        }
-      }
+          border-bottom: 2px solid #3ecdc6;
       a {
-        display: inline-block;
-        padding: 16px 30px;
-        color: #afb6bf;
+          color: #57575f;
+      }
+    }
+      a {
+          display: inline-block;
+          padding: 16px 30px;
+          color: #afb6bf;
       }
       
   }

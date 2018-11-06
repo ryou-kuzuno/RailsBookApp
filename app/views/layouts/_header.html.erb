@@ -1,11 +1,11 @@
 <header class="header">
   <div class="header-div">
-    
+    <% if @current_user %>
       <ul>
         <li><%= link_to "感想を書く", "/new"%></li>
         <li><%= link_to "新着一覧", "/" %></li>
-        <li><%= link_to "お気に入り・コメント" ,"#" %></li>
-        <li><%= link_to "ユーザーホーム", "/"%></li>
+        <li><%= link_to "お気に入り・コメント" ,"/users/#{@current_user.id}/likes" %></li>
+        <li><%= link_to "ユーザーホーム", "/users/#{@current_user.id}"%></li>
         <li>
           <a href="search" class="search">検索する</a>
           <input type="search" >
@@ -17,12 +17,22 @@
                   <div class="accshow">
                   <!--ここに隠す中身-->
                     <div class="accshow-div">
-                      <%= link_to "ユーザー設定", "#"%>
+                      <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
                       <p>hyu</p>
                     </div>
                   </div>
               </div>
         </li>
       </ul>
+    <% else%>
+          <ul>
+        <li><%= link_to "感想を書く", "/new"%></li>
+        <li><%= link_to "新着一覧", "/" %></li>
+        <li>
+          <a href="search" class="search">検索する</a>
+          <input type="search" >
+        </li>
+      </ul>
+    <% end%>
   </div>
 </header>

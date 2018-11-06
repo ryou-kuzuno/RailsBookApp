@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-    before_action :set_current_user
 
     def index
         @books =Bookstore.all.order(created_at: :desc)
@@ -8,6 +7,7 @@ class BooksController < ApplicationController
     def show
         @book = Bookstore.find_by(id: params[:id])
         @likes_count = Like.where(book_id: @book.id).count
+        @comment = Comment.find_by(id: params[:id])
     end
 
     def new
@@ -38,9 +38,9 @@ class BooksController < ApplicationController
         @book.impressions = params[:impressions]
 
         if params[:thumbnail]
-            @user.thumbnail_name = "#{@user.id}.jpg"
+            # @user.thumbnail = "#{@user.id}.jpg"
             thumbnail = params[:thumbnail]
-            File.binwrite "public/books_images/#{@user.thumbnail_name}", thumbnail.read
+            File.binwrite "public/books_images/#{@user.thumbnail}", thumbnail.read
         end
 
         if @book.save

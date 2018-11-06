@@ -1,3 +1,3 @@
 class Comment < ApplicationRecord
-    has_many :bookstores
+    belongs_to :bookstore
 end

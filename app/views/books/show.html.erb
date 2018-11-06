@@ -8,7 +8,7 @@
     </div>
       <p><%= @book.story %></p>
       <p><%= @book.impressions %></p>
-      <div class="card-under">
+      <div class="card-under"> 
         <div >
         <% if Like.find_by(user_id: @current_user.id, book_id: @book.id) %>
           <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
@@ -20,6 +20,7 @@
           <% end %>
         <% end %>
           <%= @likes_count %>
+          <p>コメント機能の実装</p>
           <span class="material-icons speech">question_answer</span>
         </div>
         <div>
@@ -28,3 +29,6 @@
       </div>
     </div>
 </div>
+
+<%# <%= render partial: 'books/cards/comment'%> %>
+

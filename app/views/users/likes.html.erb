@@ -1,24 +1,22 @@
 
-      <h2><%= @user.nicename %></h2>
+<h2><%= @user.nicename %></h2>
       <p><%= @user.mail %></p>
-      <% if @user.id == @current_user.id %>
+<% if @user.id == @current_user.id %>
         <%= link_to "編集", "/users/#{@user.id}/edit"  %>
-      <% end %>
-    
-    
+<% end %>
+
+
     <ul>
       <li><%= link_to "自分の投稿", "/users/#{@user.id}" %></li>
-      <li><%= link_to "お気に入り", "/#{@user.id}/likes" %></li>
+      <li><%= link_to "お気に入り", "/users/#{@user.id}/likes" %></li>
     </ul>
-    
+
     <% @likes.each do |like| %>
       <% book = Bookstore.find_by(id: like.book_id) %>
-      <div>
+        <% if @book%> 
         <div>
-          <div>
-            <%= link_to book.user.nicename, "#" %>
-          </div>
-          <%= link_to book.title, "/show/#{book.id}" %>
+          <%= link_to @user.nicename, "/users/#{@user.id}" %>
+          <%= link_to @book.title, "/show/#{@book.id}" %>
         </div>
-      </div>
+        <% end%>
     <% end %>

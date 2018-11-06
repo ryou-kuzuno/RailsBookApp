@@ -1,6 +1,6 @@
 class Bookstore < ApplicationRecord
     validates :title, {presence: true, length: {maximum: 255}}
-    belongs_to :user
-    belongs_to :like
-    belongs_to :comment
+    has_many :users
+    has_many :likes
+    has_many :comments
 end

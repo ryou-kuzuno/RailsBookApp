@@ -10,5 +10,6 @@
             <textarea class ="impressions" name="impressions"><%= @book.impressions %></textarea>
         </div>
         <input type="submit" value="保存">
+         <%= link_to "削除", "/#{@book.id}/destroy", {method: "post"} %>
     </div>
 <% end %>

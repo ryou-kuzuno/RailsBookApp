@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+ 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  post "likes/:id/create"  => "likes#create"
-  post "likes/:id/destroy" => "likes#destroy"
+  get ':book_id/create'  => "comments#create"
+  delete ':book_id/destroy' => "comments#destroy"
+  
+  post "likes/:book_id/create"  => "likes#create"
+  post "likes/:book_id/destroy" => "likes#destroy"
   
   post "update/:id" => "users#update"#ユーザーの変更を反映
   get "users/:id/edit" => "users#edit" #ユーザー編集画面
@@ -11,7 +15,7 @@ Rails.application.routes.draw do
   get "signup"        => "users#new"#ユーザー登録画面
   post "login"        => "users#login"#ログインする
   post "logout"       => "users#logout"#ログアウトする
-  get "login"         => "users#login_form"#ログイン画面
+  get "/"         => "users#login_form"#ログイン画面
 
   post "create"        => "books#create"#本を作るアクション
   post ":id/destroy"=> "books#destroy"#削除機能で削除する
@@ -20,6 +24,6 @@ Rails.application.routes.draw do
   get ":id/edit"    => "books#edit"#編集画面
   get "show/:id"    => "books#show"#詳細画面
   get "index"         => "books#index"
-  get "/"             => "books#index"#新着一覧
+
 
 end

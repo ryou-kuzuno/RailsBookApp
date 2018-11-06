@@ -1,0 +1,26 @@
+<div>
+  <p>コメント記入</p>
+  <%= form_for @comment do |form| %>
+    <%= form.hidden_field :book_id %>
+    <div>
+      <%= form.label :name, '名前' %>
+      <%= form.text_field :name, class: '' %>
+    </div>
+    <div>
+      <%= form.label :cmment, 'コメント' %>
+      <%= form.text_area :comment, class: '', rows: 4 %>
+    </div>
+    <%= form.submit '送信', class: '' %>
+  <% end %>
+</div>
+
+<% @user.bookstores.each do |book| %>
+      <div class="posts-index-item">
+        <div class="post-right">
+          <div class="post-user-name">
+            <%= link_to book.title, "#" %>
+          </div>
+          <%= link_to book.author, "/show/#{book.id}" %>
+        </div>
+      </div>
+<% end %>
