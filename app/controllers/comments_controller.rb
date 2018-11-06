@@ -1,4 +1,16 @@
 class CommentsController < ApplicationController
+  
+  def reply
+    @comment = Comment.new(
+      comment: params[:comment],
+      book_id: params[:book_id],
+      user_id: params[:user_id],
+      displayable: params[:displayable]
+    )
+    @comment.save
+    redirect_to :action => "show/#{@book.id}"
+  end
+  
   def create
     comment = Comment.new(comment_params)
     if comment.save

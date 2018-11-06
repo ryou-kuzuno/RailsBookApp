@@ -30,5 +30,12 @@
     </div>
 </div>
 
-<%# <%= render partial: 'books/cards/comment'%> %>
+<%# <%= render partial: 'books/cards/comment'%>
+<div>
+  <p>コメント記入</p>
+  <%= form_tag "/show/#{@book.id}/comment" do%>
+        <textarea name="comment" class="hidden"></textarea>
+        <button type="submit" >コメント</button>
+  <% end %>
+</div>
 

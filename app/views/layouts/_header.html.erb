@@ -3,7 +3,7 @@
     <% if @current_user %>
       <ul>
         <li><%= link_to "感想を書く", "/new"%></li>
-        <li><%= link_to "新着一覧", "/" %></li>
+        <li><%= link_to "新着一覧", "/index" %></li>
         <li><%= link_to "お気に入り・コメント" ,"/users/#{@current_user.id}/likes" %></li>
         <li><%= link_to "ユーザーホーム", "/users/#{@current_user.id}"%></li>
         <li>
@@ -27,7 +27,7 @@
     <% else%>
           <ul>
         <li><%= link_to "感想を書く", "/new"%></li>
-        <li><%= link_to "新着一覧", "/" %></li>
+        <li><%= link_to "新着一覧", "/index" %></li>
         <li>
           <a href="search" class="search">検索する</a>
           <input type="search" >
