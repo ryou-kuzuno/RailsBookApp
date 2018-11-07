@@ -7,14 +7,14 @@
           </div>
         <% end %>
 
-        <%= form_for user do |form| %>
+        <%= form_for @user do |form| %>
         <div>
-          <%= form.label :email %>
-          <%= form.email_field :email %>
+          <%= form.label :mail %>
+          <%= form.email_field :mail %>
         </div>
         <div>
-          <%= form.label :nicename %>
-          <%= form.text_field :nicename %>
+          <%= form.label :password %>
+          <%= form.text_field :password %>
         </div>
         <% end %>
       </div>
