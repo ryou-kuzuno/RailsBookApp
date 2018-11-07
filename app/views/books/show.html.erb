@@ -20,22 +20,17 @@
           <% end %>
         <% end %>
           <%= @likes_count %>
-          <p>コメント機能の実装</p>
-          <span class="material-icons speech">question_answer</span>
         </div>
         <div>
         <%= link_to "編集", "/#{@book.id}/edit"%>
-        <%= link_to "戻る", "/"%>
+        <%= link_to "戻る", "/index"%>
       </div>
     </div>
 </div>
 
-<%# <%= render partial: 'books/cards/comment'%>
+ <%= render partial: 'books/cards/comment'%> 
 <div>
   <p>コメント記入</p>
-  <%= form_tag "/show/#{@book.id}/comment" do%>
-        <textarea name="comment" class="hidden"></textarea>
-        <button type="submit" >コメント</button>
-  <% end %>
+  
 </div>
 

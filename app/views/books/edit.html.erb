@@ -11,5 +11,6 @@
         </div>
         <input type="submit" value="保存">
          <%= link_to "削除", "/#{@book.id}/destroy", {method: "post"} %>
+         <%= link_to "戻る", "/show/#{@book.id}"%>
     </div>
 <% end %>

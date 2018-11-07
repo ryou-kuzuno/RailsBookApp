@@ -7,12 +7,15 @@
           </div>
         <% end %>
 
-        <%= form_tag("/login") do %>
-          <p>メールアドレス</p>
-          <input name="mail" value="<%= @mail %>">
-          <p>パスワード</p>
-          <input type="password" name="password" value="<%= @password %>">
-          <input type="submit" value="ログイン">
+        <%= form_for user do |form| %>
+        <div>
+          <%= form.label :email %>
+          <%= form.email_field :email %>
+        </div>
+        <div>
+          <%= form.label :nicename %>
+          <%= form.text_field :nicename %>
+        </div>
         <% end %>
       </div>
     </div>
