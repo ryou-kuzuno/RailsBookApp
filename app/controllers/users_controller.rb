@@ -8,6 +8,9 @@ class UsersController < ApplicationController
 
     def new
       @user = User.new
+      if @user.save
+        redirect_to "/index"
+      end
     end
 
     def create
@@ -20,16 +23,16 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         flash[:notice] = "ユーザー登録が完了しました"
-        redirect_to "/users/#{@user.id}"
+        redirect_to controller: :users, action: :show
       else
         render "users/new"
       end
     end
-    
+
     def edit
       @user = User.find_by(id: params[:id])
     end
-    
+
     def update
       @user = User.find_by(id: params[:id])
       @user.nicename = params[:nicename]
@@ -44,6 +47,8 @@ class UsersController < ApplicationController
     end
     
     def login_form
+        @user =User.new
+
     end
     
     def login

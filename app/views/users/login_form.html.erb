@@ -7,14 +7,17 @@
           </div>
         <% end %>
 
-        <%= form_for @user do |form| %>
+        <%= form_for @user, url: { controller: :users, action: :login_form } do |form| %>
         <div>
-          <%= form.label :mail %>
+          <%= form.label :メール %>
           <%= form.email_field :mail %>
         </div>
         <div>
-          <%= form.label :password %>
+          <%= form.label :パスワード %>
           <%= form.text_field :password %>
+        </div>
+        <div>
+          <%= form.submit 'ログイン' %>
         </div>
         <% end %>
       </div>

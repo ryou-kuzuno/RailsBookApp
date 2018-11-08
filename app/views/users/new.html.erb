@@ -6,15 +6,25 @@
             <%= message %>
           </div>
         <% end %>
-        
-        <%= form_tag "/users/create" do %>
-          <p>ユーザー名</p>
-          <input name="nicename" value="<%= @user.nicename %>">
-          <p>メールアドレス</p>
-          <input name="mail" value="<%= @user.mail %>">
-          <p>パスワード</p>
-          <input type="password" name="password" value="<%= @user.password %>">
-          <input type="submit" value="新規登録">
+
+         <%= form_for @user , url: { controller: :users, action: :create } do |form| %>
+        <div>
+            <%= form.label :ユーザー名 %>
+            <%= form.text_field :nicename %>
+        </div>
+        <div>
+          <%= form.label :メールアドレス %>
+          <%= form.email_field :mail %>
+        </div>
+        <div>
+          <%= form.label :パスワード %>
+          <%= form.text_field :password %>
+        </div>
+        <div>
+          <%= button_tag type: "submit" do %>
+              新規登録
+          <% end %>
+        </div>
         <% end %>
     </div>
 </div>
