@@ -7,8 +7,11 @@
       <%= book.author %>
       </div>
     </div>
-      <%= book.story %>
-      <%= book.impressions %>
+    <% end%>
+    <% @impression.each do |imp|%>
+      <%= imp.story %>
+      <%= imp.impressions %>
+    <% end%>
   <div class="card-under">
 
         <%# <i class="material-icons hart">favorite</i> %>
@@ -18,4 +21,3 @@
     </div>
   </div>
 </div>
-<% end%>
