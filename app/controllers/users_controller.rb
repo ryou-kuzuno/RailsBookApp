@@ -14,18 +14,20 @@ class UsersController < ApplicationController
     end
 
     def create
+      # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
       @user = User.new(
-        nicename: params[:nicename],
-        mail: params[:mail],
+        nicename: params["user"]["nicename"],
+        mail: params["user"]["mail"],
         # thumbnail: "イメージ画像",
-        password: params[:password]
+        password: params["user"]["password"]
       )
+      # raise @user.inspect
       if @user.save
         session[:user_id] = @user.id
         flash[:notice] = "ユーザー登録が完了しました"
-        redirect_to controller: :users, action: :show
+        redirect_to "/index"
       else
-        render "users/new"
+        render "signup"
       end
     end
 
@@ -53,17 +55,25 @@ class UsersController < ApplicationController
     
     def login
       @user = User.find_by(
-        mail: params[:mail], 
-        password: params[:password]
+        mail: params["user"]["mail"], 
+        password: params["user"]["password"]
       )
+      # raise @user.inspect
       if @user
         session[:user_id] = @user.id
         flash[:notice] = "ログインしました"
         redirect_to "/index"
       else
         @error_message = "メールアドレスまたはパスワードが間違っています"
-        @mail = params[:mail]
-        @password = params[:password]
+        # @mail = params["user"]["mail"]
+        # @password = params["user"]["password"]
+
+        # @user = という処理がないので、html側で@userがnilになってしまっている
+        @user = User.new
+        @user.mail = params["user"]["mail"]
+        @user.password = params["user"]["password"]
+        # @user.age = params["user"]["age"] # => 25
+
         render "users/login_form"
       end
     end

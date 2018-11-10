@@ -1,24 +1,24 @@
 <div class="form-heading">ログイン</div>
 <div class="form users-form">
-      <div class="form-body">
-        <% if @error_message %>
-          <div class="form-error">
-            <%= @error_message %>
-          </div>
-        <% end %>
+  <div class="form-body">
+                  <% if @error_message %>
+                    <div class="form-error">
+                      <%= @error_message %>
+                    </div>
+                  <% end %>
 
-        <%= form_for @user, url: { controller: :users, action: :login_form } do |form| %>
-        <div>
-          <%= form.label :メール %>
-          <%= form.email_field :mail %>
-        </div>
+    <%= form_for @user, url: { 'controller' => 'users', 'action' => 'login'} do |form| %>
+      <div>
+        <%= form.label :メール %>
+        <%= form.email_field :mail %>
+      </div>
         <div>
           <%= form.label :パスワード %>
-          <%= form.text_field :password %>
+          <%= form.password_field :password %>
         </div>
-        <div>
-          <%= form.submit 'ログイン' %>
-        </div>
-        <% end %>
-      </div>
-    </div>
+          <div>
+            <%= form.submit 'ログイン' %>
+          </div>
+    <% end %>
+  </div>
+</div>
