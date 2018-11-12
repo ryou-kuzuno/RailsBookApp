@@ -1,10 +1,9 @@
-
-<% if @impression %>
-<% @impression.each do |impre| %>
+<% if @comment %>
+<% @comment.each do |com| %>
       <div class="posts-index-item">
         <div class="post-right">
           <div class="post-user-name">
-            <%= impre.impressions %>
+            <%= com.impressions %>
           </div>
           <%= link_to @book.author, "/show/#{@book.id}" %>
         </div>

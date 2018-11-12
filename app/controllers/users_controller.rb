@@ -8,9 +8,9 @@ class UsersController < ApplicationController
 
     def new
       @user = User.new
-      if @user.save
-        redirect_to "/index"
-      end
+      # if @user.save なんかついてた、コメントアウトでうまくいった。
+      #   redirect_to "/index"
+      # end
     end
 
     def create

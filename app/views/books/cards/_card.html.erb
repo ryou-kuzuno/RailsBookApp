@@ -8,16 +8,19 @@
       </div>
     </div>
     <% end%>
+    <%# <% if @impression%> 
     <% @impression.each do |imp|%>
       <%= imp.story %>
       <%= imp.impressions %>
-    <% end%>
+    
+    
   <div class="card-under">
 
         <%# <i class="material-icons hart">favorite</i> %>
 
     <div>
-      <%= link_to "詳細", "/show/#{book.id}"%>
+      <%= link_to "詳細", "/show/#{imp.id}"%>
     </div>
+    <% end%>
   </div>
 </div>

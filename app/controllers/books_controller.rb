@@ -2,16 +2,19 @@ class BooksController < ApplicationController
 
     def index
         @books =Bookstore.all.order(created_at: :desc)
+        @impression = Impression.all.order(created_at: :desc)
     end
 
     def show
         @book = Bookstore.find_by(id: params[:id])
+        @impression = Impression.find_by(id: params[:id])
         @likes_count = Like.where(book_id: @book.id).count
         @comment = Comment.find_by(id: params[:id])
     end
 
     def new
         @book = Bookstore.new
+        @impression = Impression.new
     end
 
     def edit
@@ -20,22 +23,26 @@ class BooksController < ApplicationController
 
     def create
         @book = Bookstore.new(
-            title: params[:title],
-            author: params[:author],
-            story: params[:story],
-            impressions: params[:impressions]
+            title: params["bookstore"]["title"],
+            author: params["bookstore"]["author"],
             )
-        if @book.save
+        @impression = Impression.new(
+            story: params["bookstore"]["impression"]["story"],
+            impressions: params["bookstore"]["impression"]["impressions"]
+        )
+        # raise @user.inspect
+        if @book.save && @impression.save
             redirect_to "/index"
+
           else
-            render "/new"
+            render "new"
         end
     end
 
     def update
-        @book = Bookstore.find_by(id: params[:id])
-        @book.story = params[:story]
-        @book.impressions = params[:impressions]
+        @impression = Impression.find_by(id: params[:id])
+        @impression.story = params[:story]
+        @impression.impressions = params[:impressions]
 
         if params[:thumbnail]
             # @user.thumbnail = "#{@user.id}.jpg"
@@ -43,10 +50,10 @@ class BooksController < ApplicationController
             File.binwrite "public/books_images/#{@user.thumbnail}", thumbnail.read
         end
 
-        if @book.save
-            redirect_to "/show/#{@book.id}"
+        if @impression.save
+            redirect_to "/show/#{@impression.id}"
         else
-            render "#{@book.id}/edit"
+            render "#{@impression.id}/edit"
         end
     end
 
