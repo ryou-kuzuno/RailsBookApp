@@ -1,5 +1,7 @@
+
 <% @books.each do |book| %>
-<div class="card">
+
+    <div class="card">
     <div>
       <%= book.thumbnail %>
       <div class="card-right">
@@ -7,19 +9,19 @@
       <%= book.author %>
       </div>
     </div>
-    <% end%>
-    <%# <% if @impression%> 
+    <%# <% if @impression%>
+    <div class="card-text">
     <% @impression.each do |imp|%>
       <%= imp.story %>
       <%= imp.impressions %>
-    
-    
+    <% end%>
+    </div>
   <div class="card-under">
 
         <%# <i class="material-icons hart">favorite</i> %>
 
     <div>
-      <%= link_to "詳細", "/show/#{imp.id}"%>
+      <%= link_to "詳細", "/show/#{book.id}"%>
     </div>
     <% end%>
   </div>
