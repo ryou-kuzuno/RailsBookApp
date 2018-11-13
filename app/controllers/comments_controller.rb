@@ -1,6 +1,10 @@
 class CommentsController < ApplicationController
   def reply
-    @comment = Comments.find(id: params[:id])
+    @book = Bookstore.find(id: params[:id])
+    @comment = Comments.new
+    if @comment.save
+      redirect_to "/show/#{@book.id}"
+    end
   end
 
 

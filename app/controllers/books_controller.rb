@@ -6,10 +6,23 @@ class BooksController < ApplicationController
     end
 
     def show
-        @book = Bookstore.find_by(id: params[:id])
-        @impression = Impression.find_by(id: params[:id])
-        @likes_count = Like.where(book_id: @impression.id).count
-        @comment = Comment.new
+        @book = Bookstore.find_by(
+            id: params[:id]
+            )
+        @impression = Impression.find_by(
+            id: params[:id]
+            )
+        @likes_count = Like.where(
+            book_id: @impression.id
+            ).count
+         @comment = Comment.new
+        #(comments: params["comment"]["comment"]
+        # )
+        if @comment
+            @comment = Comment.find_by(id: params[:id])
+            # raise @user.inspect
+
+        end
     end
 
     def new
@@ -31,7 +44,7 @@ class BooksController < ApplicationController
             story: params["bookstore"]["impression"]["story"],
             impressions: params["bookstore"]["impression"]["impressions"]
         )
-        # raise @user.inspect
+       
         if @book.save && @impression.save
             redirect_to "/index"
 
