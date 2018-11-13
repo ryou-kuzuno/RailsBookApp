@@ -23,6 +23,8 @@ class BooksController < ApplicationController
             # raise @user.inspect
 
         end
+
+        @new_comment = Comment.new
     end
 
     def new

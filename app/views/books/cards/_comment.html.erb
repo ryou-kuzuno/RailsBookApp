@@ -9,12 +9,13 @@
         </div>
   <% end %>
 <% end %>
+
 <div>
-    <%= form_for @comment, url: { controller: :comments, action: :reply } do |com|%>
-      <div>
-        <%= com.label :コメント %>
-        <%= com.text_field :comments %>
-      </div>
-      <%= form.submit 'コメントする ' %>
-    <% end%>
+  <%= form_for @new_comment, url: { controller: :comments, action: :reply } do |form|%>
+    <div>
+      <%= form.label :コメント %>
+      <%= form.text_field :comment %>
+    </div>
+    <%= form.submit 'コメントする ' %>
+  <% end%>
 </div>
