@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
-  
   def reply
-    
+    @comment = Comments.find(id: params[:id])
   end
 
 

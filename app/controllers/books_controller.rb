@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-
+    #感想一覧
     def index
         @books =Bookstore.all.order(created_at: :desc)
         @impression = Impression.all.order(created_at: :desc)
@@ -8,8 +8,8 @@ class BooksController < ApplicationController
     def show
         @book = Bookstore.find_by(id: params[:id])
         @impression = Impression.find_by(id: params[:id])
-        @likes_count = Like.where(book_id: @book.id).count
-        @comment = Comment.find_by(id: params[:id])
+        @likes_count = Like.where(book_id: @impression.id).count
+        @comment = Comment.new
     end
 
     def new
@@ -19,6 +19,7 @@ class BooksController < ApplicationController
 
     def edit
         @book = Bookstore.find_by(id: params[:id])
+        @impression = Impression.find_by(id: params[:id])
     end
 
     def create

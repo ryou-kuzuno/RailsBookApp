@@ -10,7 +10,7 @@
       <p><%= @impression.impressions %></p>
       <div class="card-under"> 
         <div >
-        <% if Like.find_by(user_id: @current_user.id, book_id: @book.id) %>
+        <% if Like.find_by(user_id: @current_user.id, book_id: @impression.id) %>
           <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
             <span class="material-icons hart">favorite</span>
           <% end %>
@@ -23,6 +23,9 @@
         </div>
         <div>
         <%= link_to "編集", "/#{@book.id}/edit"%>
+        <%# <% if @user.id == @current_user%>
+        <%= link_to "削除", "/#{@book.id}/destroy", :method => :post %>
+        <%# <% end%>
         <%= link_to "戻る", "/index"%>
       </div>
     </div>
@@ -30,7 +33,8 @@
 
  <%= render partial: 'books/cards/comment'%> 
 <div>
-  <p>コメント記入</p>
-  
+
 </div>
+
+
 
