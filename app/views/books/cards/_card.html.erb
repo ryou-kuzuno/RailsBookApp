@@ -1,28 +1,21 @@
 
 <% @books.zip(@impression).each do |book, imp| %>
-
-    <div class="card">
-    <div>
+  <div class="card">
       <%= book.thumbnail %>
       <div class="card-right">
-      <%= book.title %>
-      <%= book.author %>
+        <%= book.title %>
+        <%= book.author %>
       </div>
-    </div>
-
     <div class="card-text">
       <%= imp.story %>
       <%= imp.impressions %>
-
     </div>
-  <div class="card-under">
-
+    <div class="card-under">
         <i class="material-icons hart">favorite</i>
-
-    <div>
-      <%= link_to "詳細", "/show/#{imp.id}"%>
-    </div>
+      <div>
+        <%= link_to "詳細", "/show/#{imp.id}"%>
+      </div>
     </div>
   </div>
-  <% end%>
+<% end%>
 

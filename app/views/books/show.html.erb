@@ -2,39 +2,34 @@
     <div>
       <div class="card-img">画像</div>
       <div class="card-right">
-      <h1><%= @book.author%></h1>
-      <h2><%= @book.title %></h2>
+        <h1><%= @book.author%></h1>
+        <h2><%= @book.title %></h2>
       </div>
     </div>
       <p><%= @impression.story %></p>
       <p><%= @impression.impressions %></p>
       <div class="card-under"> 
-        <div >
-        <% if Like.find_by(user_id: @current_user.id, book_id: @impression.id) %>
-          <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
-            <span class="material-icons hart">favorite</span>
-          <% end %>
-        <% else %>
-          <%= link_to "/likes/#{@book.id}/create", {method: "post"}  do %>
+        <div>
+          <% if Like.find_by(user_id: @current_user.id, book_id: @impression.id) %>
+            <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
               <span class="material-icons hart">favorite</span>
+            <% end %>
+          <% else %>
+            <%= link_to "/likes/#{@book.id}/create", {method: "post"}  do %>
+              <span class="material-icons hart">favorite</span>
+            <% end %>
           <% end %>
-        <% end %>
           <%= @likes_count %>
         </div>
         <div>
-        <%= link_to "編集", "/#{@book.id}/edit"%>
-        <%# <% if @user.id == @current_user%>
-        <%= link_to "削除", "/#{@book.id}/destroy", :method => :post %>
-        <%# <% end%>
-        <%= link_to "戻る", "/index"%>
+          <%= link_to "編集", "/#{@book.id}/edit"%>
+          <%= link_to "削除", "/#{@book.id}/destroy", :method => :post %>
+          <%= link_to "戻る", "/index"%>
+        </div>
       </div>
-    </div>
 </div>
 
  <%= render partial: 'books/cards/comment'%> 
-<div>
-
-</div>
 
 
 

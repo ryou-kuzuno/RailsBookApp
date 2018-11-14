@@ -1,14 +1,11 @@
-<%# <%= form_tag "/#{@book.id}/update", {multipart: true} do %>
 <%= form_for @impression , url: { 'controller' => 'books', 'action' => 'update'} do |imp|%>
     <div class="card">
-
-        <div class="text-div">
-                <%= imp.label :あらすじ %>
-                <%= imp.text_area :story %>
-                <%= imp.label :感想 %>
-                <%= imp.text_area :impressions %>
-        </div>
-
+      <div class="text-div">
+          <%= imp.label :あらすじ %>
+          <%= imp.text_area :story %>
+          <%= imp.label :感想 %>
+          <%= imp.text_area :impressions %>
+      </div>
         <div class="card-under">
           <%= imp.submit '保存' %>
         </div>

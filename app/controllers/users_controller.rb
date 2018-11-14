@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
     def create
       # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
+      #form_forでの取り出し方
       @user = User.new(
         nicename: params["user"]["nicename"],
         mail: params["user"]["mail"],
@@ -39,7 +40,6 @@ class UsersController < ApplicationController
       @user = User.find_by(id: params[:id])
       @user.nicename = params[:nicename]
       @user.mail = params[:mail]
-
       if @user.save
         flash[:notice] = "ユーザー情報を編集しました"
         redirect_to "/users/#{@user.id}"
@@ -47,15 +47,14 @@ class UsersController < ApplicationController
         render "users/#{@user.id}/edit"
       end
     end
-    
+
     def login_form
         @user =User.new
-
     end
-    
+
     def login
       @user = User.find_by(
-        mail: params["user"]["mail"], 
+        mail: params["user"]["mail"],
         password: params["user"]["password"]
       )
       # raise @user.inspect
@@ -73,11 +72,10 @@ class UsersController < ApplicationController
         @user.mail = params["user"]["mail"]
         @user.password = params["user"]["password"]
         # @user.age = params["user"]["age"] # => 25
-
         render "users/login_form"
       end
     end
-    
+
     def logout
       session[:user_id] = nil
       flash[:notice] = "ログアウトしました"

@@ -1,4 +1,4 @@
-<% if @comment %>
+<% if @comment%>
   <% @comment.each do |com| %>
         <div class="posts-index-item">
           <div class="post-right">
@@ -8,13 +8,16 @@
           </div>
         </div>
   <% end %>
-<% end %>
+<% end%>
 <div>
-    <%= form_for @comment, url: { controller: :comments, action: :reply } do |com|%>
-      <div>
-        <%= com.label :コメント %>
-        <%= com.text_field :comments %>
-      </div>
-      <%= form.submit 'コメントする ' %>
+    <%= form_for @new_comment, url: { controller: :comments, action: :reply } do |form|%>
+        <div>
+          <%= form.label :コメント %>
+          <%= form.text_field :comment %>
+          <%# 見えないけれどフォームに送信される。 %>
+          <%= form.hidden_field :user_id %>
+          <%= form.hidden_field :book_id%>
+        </div>
+        <%= form.submit 'コメントする ' %>
     <% end%>
 </div>

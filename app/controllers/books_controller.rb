@@ -1,10 +1,12 @@
 class BooksController < ApplicationController
-    #感想一覧
+
+    #感想一覧を表示するアクション
     def index
         @books =Bookstore.all.order(created_at: :desc)
         @impression = Impression.all.order(created_at: :desc)
     end
 
+    #本の詳細画面でのアクション
     def show
         @book = Bookstore.find_by(
             id: params[:id]
@@ -15,26 +17,24 @@ class BooksController < ApplicationController
         @likes_count = Like.where(
             book_id: @impression.id
             ).count
-         @comment = Comment.new
-        #(comments: params["comment"]["comment"]
-        # )
-        if @comment
-            @comment = Comment.find_by(id: params[:id])
-            # raise @user.inspect
-
-        end
+        # raise @user.inspect
+        @new_comment = Comment.new
+        @comment = Comment.all
     end
 
+    #新しく感想を投稿する画面のアクション
     def new
         @book = Bookstore.new
         @impression = Impression.new
     end
 
+    #感想の編集画面のアクション
     def edit
         @book = Bookstore.find_by(id: params[:id])
         @impression = Impression.find_by(id: params[:id])
     end
 
+    #新しい投稿を作成するアクション
     def create
         @book = Bookstore.new(
             title: params["bookstore"]["title"],
@@ -44,20 +44,19 @@ class BooksController < ApplicationController
             story: params["bookstore"]["impression"]["story"],
             impressions: params["bookstore"]["impression"]["impressions"]
         )
-       
         if @book.save && @impression.save
             redirect_to "/index"
 
-          else
+        else
             render "new"
         end
     end
 
+    #投稿の編集内容を反映するアクション
     def update
         @impression = Impression.find_by(id: params[:id])
         @impression.story = params[:story]
         @impression.impressions = params[:impressions]
-
         if params[:thumbnail]
             # @user.thumbnail = "#{@user.id}.jpg"
             thumbnail = params[:thumbnail]
@@ -71,6 +70,7 @@ class BooksController < ApplicationController
         end
     end
 
+    #投稿内容を削除するためのアクション
     def destroy
         @book = Bookstore.find_by(id: params[:id])
         @book.destroy
