@@ -29,7 +29,7 @@
       </div>
 </div>
 
- <%= render partial: 'books/cards/comment'%> 
+ <%= render partial: 'books/cards/comment', locals: { comments: @comments, new_comment: @new_comment } %> 
 
 
 
