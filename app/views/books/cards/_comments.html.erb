@@ -1,8 +1,9 @@
-<% if @comment%>
-  <% @comment.each do |com| %>
+<% if @comments %>
+  <% @comments.each do |com| %>
         <div class="posts-index-item">
           <div class="post-right">
             <div class="post-user-name">
+              <%= com.user_id%>
               <%= com.comment %>
             </div>
           </div>
@@ -15,8 +16,8 @@
           <%= form.label :コメント %>
           <%= form.text_field :comment %>
           <%# 見えないけれどフォームに送信される。 %>
-          <%= form.hidden_field :user_id %>
-          <%= form.hidden_field :book_id%>
+          <%= form.hidden_field :user_id ,:value => "#{session[:user_id]}" %>
+          <%= form.hidden_field :book_id ,:value => "#{session[:book_id]}" %>
         </div>
         <%= form.submit 'コメントする ' %>
     <% end%>

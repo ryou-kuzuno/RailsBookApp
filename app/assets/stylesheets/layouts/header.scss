@@ -1,30 +1,35 @@
+@import "common.scss";
+
 .header {
-        overflow: visible;
-        display: flex;
-        position: fixed;
-        height: 56px;
-        top: 0;/*基準を画面の左上に*/
-        left: 0;
-        margin: 0;/*余白が入らないように*/
-        /*以下装飾*/
-        width: 100%;
-        color:rgb(5, 5, 5);
+    // overflow: visible;
+    // display: flex;
+    position: fixed;
+    height: 56px;
+    top: 0;/*基準を画面の左上に*/
+    left: 0;
+    margin-left:0 20px;
+    /*以下装飾*/
+    width: 95%;
+    color:rgb(5, 5, 5);
+    background-color: #e0e7e8;
 }
 
 .header-div {
+        display: flex;
     ul {
         display: flex;
         list-style: none;
+        height: 30px;
         margin: 16px;
         padding: 0px;
     }
     li {
         justify-content: flex-start;
-        border-left: solid 1px #aaa;
-        font-size: smaller;
+        border-left: solid 1px rgb(229, 255, 0);
+        font-size: 16px;
         margin: 0 5px;
         padding: 3px;
-        background: rgb(61, 253, 77);
+        background: wheatwheat;
         }
     li:last-child {
         border-right: solid 1px rgb(229, 255, 0);
@@ -33,36 +38,42 @@
 
     .search {
         height: 17px;
-        background: rgb(61, 253, 77);
     }
 
-    .accbox {
-            padding: 0;
+    .search-box {
+        @include box;
+    }
+
+    .hidden_box {
+        margin: 2em 0;/*前後の余白*/
+        padding: 0;
+
         label {
-            display: block;
-            // 装飾
-            color :#000000;
+            padding: 15px;
             font-weight: bold;
-            background: rgb(61, 253, 77);
-            transition: all 0.5s;
-        }
-        input {
-            display: none;/*チェックは隠す*/
+            cursor :pointer;
         }
 
-        .accshow {
+        label:hover {
+            background: #efefef;
+        }
+
+        input {
+            display: none;
+        }
+
+        .hidden_show {
             height: 0;
             padding: 0;
             overflow: hidden;
+            opacity: 0;
             transition: 0.8s;
         }
-        .cssacc:checked + .accshow {
+
+        input:checked ~ .hidden_show {
+            padding: 10px 0;
             height: auto;
-            padding: 5px;
-            // background: rgb(255, 255, 255);透明にしたい
-        }
-        .accshow-div {
-            display: block;
+            opacity: 1;
         }
     }
 }

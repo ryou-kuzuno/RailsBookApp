@@ -3,12 +3,20 @@
   <div class="card">
       <%= book.thumbnail %>
       <div class="card-right">
-        <%= book.title %>
-        <%= book.author %>
+        <div class="title">
+          <%= book.title %>
+        </div>
+        <div class="author">
+          <%= book.author %>
+        </div>
       </div>
     <div class="card-text">
-      <%= imp.story %>
-      <%= imp.impressions %>
+      <div class="story">
+        <%= imp.story %>
+      </div>
+      <div class="impressions">
+        <%= imp.impressions %>
+      </div>
     </div>
     <div class="card-under">
         <i class="material-icons hart">favorite</i>

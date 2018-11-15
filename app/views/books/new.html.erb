@@ -1,16 +1,26 @@
 <%= form_for @book ,url: { 'controller' => 'books', 'action' => 'create'} do |book| %>
   <div class="card">
       <div class="card-right">
-        <%= book.label :作者名 %>
-        <%= book.text_field :title %>
-        <%= book.label :タイトル %>
-        <%= book.text_field :author %>
+        <div class="title">
+          <%= book.label :作者名 %>
+          <%= book.text_field :title %>
+        </div>
+        <div class="author">
+          <%= book.label :タイトル %>
+          <%= book.text_field :author %>
+        </div>
       </div>
       <%= book.fields_for @impression do |imp|%>
-        <%= imp.label :あらすじ %>
-        <%= imp.text_area :story %>
-        <%= imp.label :感想 %>
-        <%= imp.text_area :impressions %>
+        <div class="card-text">
+          <div class="story">
+            <%= imp.label :あらすじ %>
+            <%= imp.text_area :story %>
+          </div>
+          <div class="impressions">
+            <%= imp.label :感想 %>
+            <%= imp.text_area :impressions %>
+          </div>
+        </div>
         <% end%>
       <div class="card-under">
         <%= book.submit '投稿' %>
