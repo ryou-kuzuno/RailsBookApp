@@ -19,7 +19,11 @@ class BooksController < ApplicationController
             ).count
         # raise @user.inspect
         @new_comment = Comment.new
-        @comments = Comment.find_by(id: params[:id])
+        @comments = Comment.where(
+            comment: params[:comment],
+            user_id: params[:nicenane],
+            book_id: params[:book_id]
+            )
     end
 
     #新しく感想を投稿する画面のアクション

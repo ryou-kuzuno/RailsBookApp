@@ -7,12 +7,20 @@
 
 .card {
     width: 100%;
-    height: 300px;
-    padding: 10px;
+    height: auto;
+    padding: 30px 10px;
+    margin: 10px;
+    font-weight: bold;
+    background-color: wheat;// 詳細画面ではけそう
+}
+
+.card-show {
+    width: 100%;
+    height: auto;
+    padding: 30px 10px;
     margin: 10px;
     // border-radius: 5%;  角に丸みをつけるプロパティ
     font-weight: bold;
-    background-color: wheat;
 }
 
 .card-img {
@@ -38,7 +46,7 @@
 }
 
 .card-text {
-    
+
     .story {
         background-color: white;
         padding: 5px;
@@ -62,7 +70,7 @@
     width: 90%;
 }
 .card-under {
-    float: right;
+    clear: both; //回避？
     :hover{
 
     }
@@ -73,10 +81,6 @@
     float: left;
 }
 
-.speech {
-    color: blueviolet;
-    float: left;
-}
 .text-div {
         display: block;
     .story{

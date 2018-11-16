@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     # raise comment_params.inspect
     @new_comment = Comment.new(comment_params)
     if @new_comment.save
-      redirect_to "/show/#{@book.id}"
+      redirect_to controller: 'books', action: 'show'
       # @new_comment.save!
     end
   end
