@@ -1,3 +1,3 @@
 class Comment < ApplicationRecord
-    belongs_to :bookstore , optional: true
+    belongs_to :impression , optional: true
 end

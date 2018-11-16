@@ -1,3 +1,4 @@
 class Like < ApplicationRecord
-    belongs_to :bookstore
+    belongs_to :user
+    belongs_to :impression
 end

@@ -1,4 +1,4 @@
-<%= form_for @book ,url: { 'controller' => 'books', 'action' => 'create'} do |book| %>
+<%= form_for @book, url: { controller: :books, action: :create} do |book| %>
   <div class="card">
       <div class="card-right">
         <div class="title">
@@ -23,9 +23,6 @@
         </div>
         <% end%>
       <div class="card-under">
-      <%# <%= book.fields_for @user do |user|%> 
-        <%# <%= user.hidden_field :user ,:value => "#{session[:user]}" %> 
-      <%# <% end%> 
         <%= book.submit '投稿' %>
       </div>
   </div>
