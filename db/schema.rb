@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 2018_11_12_071710) do
     t.text "story"
     t.text "impressions"
     t.integer "user_id"
-    t.integer "book_id"
+    t.integer "bookstore_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_impressions_on_book_id"
-    t.index ["user_id", "book_id"], name: "user_book_id", unique: true
+    t.index ["bookstore_id"], name: "index_impressions_on_bookstore_id"
+    t.index ["user_id", "bookstore_id"], name: "user_bookstore_id", unique: true
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 

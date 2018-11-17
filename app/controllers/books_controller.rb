@@ -3,7 +3,11 @@ class BooksController < ApplicationController
     #感想一覧を表示するアクション
     def index
         @books =Bookstore.all.order(created_at: :desc)
-        @impression = Impression.all.order(created_at: :desc)
+        @impressions = Impression.all.order(created_at: :desc)
+        # where(
+        #     story: params[:story],
+        #     impression: params[:impression]
+        # )
     end
 
     #本の詳細画面でのアクション
@@ -40,18 +44,27 @@ class BooksController < ApplicationController
 
     #新しい投稿を作成するアクション
     def create
+        # book_idを確定させるために先に@book.saveをしておく必要がある。
+        # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
         @book = Bookstore.new(
             title: params["bookstore"]["title"],
             author: params["bookstore"]["author"],
             )
+        @book.save
+
         @impression = Impression.new(
             story: params["bookstore"]["impression"]["story"],
-            impressions: params["bookstore"]["impression"]["impressions"]
+            impressions: params["bookstore"]["impression"]["impressions"],
+            user_id: params["bookstore"]["impression"]["user_id"],
+            bookstore_id: @book.id
         )
-        if @book.save && @impression.save
-            redirect_to "/index"
 
+        # raise @impression.inspect
+        if @impression.save
+            redirect_to "/index"
         else
+            # @book.saveを取り消す必要がある（データを消しているだけ）
+            @book.destroy
             render "new"
         end
     end
