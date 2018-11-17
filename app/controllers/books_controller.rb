@@ -19,14 +19,14 @@ class BooksController < ApplicationController
             id: params[:id]
             )
         @likes_count = Like.where(
-            book_id: @impression.id
+            bookstore_id: @impression.id
             ).count
         # raise @user.inspect
         @new_comment = Comment.new
         @comments = Comment.where(
             comment: params[:comment],
             user_id: params[:nicenane],
-            book_id: params[:book_id]
+            bookstore_id: params[:book_id]
             )
     end
 
