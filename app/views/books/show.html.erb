@@ -6,30 +6,36 @@
         <h2><%= @book.title %></h2>
       </div>
     </div>
-      <p><%= @impression.story %></p>
-      <p><%= @impression.impressions %></p>
-      <div class="card-under"> 
-        <div>
-          <% if Like.find_by(user_id: @current_user.id, book_id: @impression.id) %>
-            <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
-              <span class="material-icons hart">favorite</span>
-            <% end %>
-          <% else %>
-            <%= link_to "/likes/#{@book.id}/create", {method: "post"}  do %>
-              <span class="material-icons hart">favorite</span>
-            <% end %>
+
+    <% # 1つの本に対して感想は複数存在する %>
+    <% @impressions.each do |imp| %>
+      <p><%= imp.story %></p>
+      <p><%= imp.impressions %></p>
+    <% end %>
+
+    <div class="card-under"> 
+      <div>
+        <% if Like.find_by(user_id: @current_user.id, bookstore_id: @book.id) %>
+          <%= link_to "/likes/#{@book.id}/destroy", {method: "post"} do %>
+            <span class="material-icons hart">favorite</span>
           <% end %>
-          <%= @likes_count %>
-        </div>
-        <div>
-          <%= link_to "編集", "/#{@book.id}/edit"%>
-          <%= link_to "削除", "/#{@book.id}/destroy", :method => :post %>
-          <%= link_to "戻る", "/index"%>
-        </div>
+        <% else %>
+          <%= link_to "/likes/#{@book.id}/create", {method: "post"}  do %>
+            <span class="material-icons hart">favorite</span>
+          <% end %>
+        <% end %>
+        <%= @likes_count %>
       </div>
+      <div>
+        <%= link_to "編集", "/#{@book.id}/edit"%>
+        <%= link_to "削除", "/#{@book.id}/destroy", :method => :post %>
+        <%= link_to "戻る", "/index"%>
+      </div>
+    </div>
+
 </div>
 
- <%= render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment } %> 
+ <% render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment } %> 
 
 
 
