@@ -1,6 +1,7 @@
 <% @comments.each do |comment| %>
-<%= comment.comment %>
+    <%= comment.comment %>
 <% end %>
+
 <div>
     <%= form_for @new_comment, url: { controller: :comments, action: :reply } do |form|%>
         <div>

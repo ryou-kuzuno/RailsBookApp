@@ -1,27 +1,27 @@
 class LikesController < ApplicationController
 
     def like
-        @book = Bookstore.fin_by(id: params[:id])
+        @imp = Impression.find_by(id: params[:id])
     end
 
     def create
         @like = Like.new(
             user_id: @current_user.id, 
-            book_id: params[:book_id]
+            bookstore_id: params[:bookstore_id]
         )
         @like.save
-        redirect_to "/show/#{params[:book_id]}"
-        @likes_count = Like.where(book_id: @like.book_id).count
+        redirect_to "/show/#{params[:_id]}"
+        @likes_count = Like.where(bookstore_id: @like.bookstore_id).count
 
     end
 
     def destroy
         @like = Like.find_by(
             user_id: @current_user.id, 
-            book_id: params[:book_id]
+            bookstore_id: params[:bookstore_id]
         )
         @like.destroy
-        redirect_to "/show/#{params[:book_id]}"
+        redirect_to "/show/#{params[:bookstore_id]}"
     end
 
 end

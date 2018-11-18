@@ -13,20 +13,24 @@ class BooksController < ApplicationController
     #本の詳細画面でのアクション
     def show
         @book = Bookstore.find_by(
-            id: params[:id]
+            id: params[:bookstore_id]
             )
-        @impression = Impression.find_by(
-            id: params[:id]
-            )
+
+        # @impressions = Impression.find_by(
+        #     id: params[:id]
+        #     )
+        @impressions =     Impression.where(story: params[:story], impressions: params[:impressions])
+        raise @impressions.inspect
         @likes_count = Like.where(
-            book_id: @impression.id
+            bookstore_id: params[:impressions_id]
             ).count
-        # raise @user.inspect
+
         @new_comment = Comment.new
+
         @comments = Comment.where(
             comment: params[:comment],
             user_id: params[:nicenane],
-            book_id: params[:book_id]
+            bookstore_id: params[:bookstore_id]
             )
     end
 

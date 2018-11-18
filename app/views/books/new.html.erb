@@ -11,7 +11,7 @@
         </div>
       </div>
       <%= book.fields_for @impression do |imp|%>
-        <%= imp.hidden_field :user_id ,:value => 1 %>
+        <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
         <div class="card-text">
           <div class="story">
             <%= imp.label :あらすじ %>
