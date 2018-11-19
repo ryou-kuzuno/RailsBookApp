@@ -1,15 +1,16 @@
-<% @comments.each do |comment| %>
-    <%= comment.comment %>
-<% end %>
+
+    <% @comments.each do |comment| %>
+        <%= comment.comment %>
+    <% end %>
 
 <div>
-    <%= form_for @new_comment, url: { controller: :comments, action: :reply } do |form| %>
+    <%= form_for @new_comment  ,url: {controller: :books, action: :reply} do |form| %> 
         <div>
           <%= form.label :コメント %>
           <%= form.text_field :comment %>
           <%# 見えないけれどフォームに送信される。 %>
           <%= form.hidden_field :user_id ,:value => "user" %>
-          <%= form.hidden_field :book_id ,:value => "bookstore" %>
+          <%= form.hidden_field :bookstore_id ,:value => "impression" %>
         </div>
         <%= form.submit 'コメントする ' %>
     <% end%>

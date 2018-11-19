@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get ':book_id/create'  => "comments#create"#投稿にコメントする
   delete ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
   post ":id/destroy"=> "books#destroy"#投稿を削除する
-
+  # form_forがうまく表示されなかったのはbookstore_idになっていなかったから
+  post "show/:bookstore_id/comment" => "books#reply"
   post "likes/:bookstore_id/create"  => "likes#create"
   post "likes/:bookstore_id/destroy" => "likes#destroy"
 
@@ -20,10 +21,10 @@ Rails.application.routes.draw do
 
   post "create"        => "books#create"#本を作るアクション
   
-  post ":id/update" => "books#update"#変更を反映
+  post ":bookstore_id/update" => "books#update"#変更を反映
   get "new"           => "books#new"#新規登録画面
-  get ":id/edit"    => "books#edit"#編集画面
-  post "show/:id/comment" => "comments#reply"
+  get ":bookstore_id/edit"    => "books#edit"#編集画面
+  
   get "show/:bookstore_id"    => "books#show"#詳細画面
   get "index"         => "books#index"
 

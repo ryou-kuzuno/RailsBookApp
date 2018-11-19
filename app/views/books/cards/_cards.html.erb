@@ -1,5 +1,5 @@
 
-<% @books.zip(@impressions).each do |book , impression| %>
+<% @books.each do |book| %>
   <div class="card">
       <%= book.thumbnail %>
       <div class="card-right">
@@ -10,6 +10,8 @@
           <%= book.author %>
         </div>
       </div>
+<% end %>
+<% @impressions.each do |impression| %>
     <div class="card-text">
       <div class="story">
         <%= impression.story %>

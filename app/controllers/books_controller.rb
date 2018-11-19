@@ -16,13 +16,8 @@ class BooksController < ApplicationController
             id: params[:bookstore_id]
             )
 
-        # @impressions = Impression.find_by(
-        #     id: params[:id]
-        #     )
-        @impressions = Impression.find_by(
-            story: params[:story], 
-            impressions: params[:impressions]
-            )
+        # bookstore_idにしたら動いた
+        @impressions = Impression.find_by(id: params[:bookstore_id])
 
         @likes_count = Like.where(
             bookstore_id: params[:impressions_id]
@@ -45,8 +40,7 @@ class BooksController < ApplicationController
 
     #感想の編集画面のアクション
     def edit
-        @book = Bookstore.find_by(id: params[:id])
-        @impression = Impression.find_by(id: params[:id])
+        @impression = Impression.find_by(id: params[:bookstore_id])
     end
 
     #新しい投稿を作成するアクション
@@ -58,10 +52,10 @@ class BooksController < ApplicationController
             author: params["bookstore"]["author"],
             )
         @book.save
-
+        #unknown attribute 'impression' for Impression.
         @impression = Impression.new(
             story: params["bookstore"]["impression"]["story"],
-            impressions: params["bookstore"]["impression"]["impressions"],
+            impression: params["bookstore"]["impression"]["impression"],
             user_id: params["bookstore"]["impression"]["user_id"],
             bookstore_id: @book.id
         )
@@ -80,7 +74,7 @@ class BooksController < ApplicationController
     def update
         @impression = Impression.find_by(id: params[:id])
         @impression.story = params[:story]
-        @impression.impressions = params[:impressions]
+        @impression.impression = params[:impressions]
         if params[:thumbnail]
             # @user.thumbnail = "#{@user.id}.jpg"
             thumbnail = params[:thumbnail]
@@ -94,10 +88,24 @@ class BooksController < ApplicationController
         end
     end
 
+    #投稿に対するコメントを作成するアクション
+  def reply
+    @book = Bookstore.find(params[:id])
+    comment_params = params["comment"].permit(:bookstore_id,:comment, :user_id)
+    # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする。
+    # raise comment_params.inspect
+    @new_comment = Comment.new(comment_params)
+    if @new_comment.save
+      redirect_to controller: 'books', action: 'show'
+      # @new_comment.save!
+    end
+  end
+
+
     #投稿内容を削除するためのアクション
     def destroy
-        @book = Bookstore.find_by(id: params[:id])
-        @book.destroy
+        @impression = Impression.find(params[:id])
+        @impression.destroy
         flash[:notice] = "投稿を削除しました"
         redirect_to "/index"
     end
