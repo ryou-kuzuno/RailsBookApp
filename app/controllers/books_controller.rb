@@ -19,8 +19,11 @@ class BooksController < ApplicationController
         # @impressions = Impression.find_by(
         #     id: params[:id]
         #     )
-        @impressions =     Impression.where(story: params[:story], impressions: params[:impressions])
-        raise @impressions.inspect
+        @impressions = Impression.find_by(
+            story: params[:story], 
+            impressions: params[:impressions]
+            )
+
         @likes_count = Like.where(
             bookstore_id: params[:impressions_id]
             ).count

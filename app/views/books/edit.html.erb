@@ -2,14 +2,14 @@
     <div class="card">
       <div class="text-div">
           <%= imp.label :あらすじ %>
-          <%= imp.text_area :story %>
+          <%= imp.text_area :story  ,value="<%= imp.story %>"%>
           <%= imp.label :感想 %>
-          <%= imp.text_area :impressions %>
+          <%= imp.text_area :impressions ,value="<%= imp.impressions %>"%>
       </div>
         <div class="card-under">
           <%= imp.submit '保存' %>
         </div>
-         <%= link_to "削除", "/#{@book.id}/destroy", {method: "post"} %>
-         <%= link_to "戻る", "/show/#{@book.id}"%>
+         <%= link_to "削除", "/#{imp.id}/destroy", {method: "post"} %>
+         <%= link_to "戻る", "/show/#{imp.id}"%>
     </div>
 <% end %>

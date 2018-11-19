@@ -1,5 +1,6 @@
 <header class="header">
   <div class="header-div">
+    <%# userログイン時 %>
     <% if @current_user %>
       <ul>
         <li><%= link_to "感想を書く", "/new"%></li>
@@ -19,6 +20,7 @@
                 <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
             </div>
           </div>
+    <%# user非ログイン時 %>
     <% else%>
       <ul>
         <li><%= link_to "感想を書く", "/new" %></li>

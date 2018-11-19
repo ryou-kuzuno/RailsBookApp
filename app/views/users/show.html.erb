@@ -1,14 +1,17 @@
 <h2><%= @user.nicename %></h2>
-<%# <p><%= @user.mail %></p> 
+<%# user.mailと編集リンクを表示 %>
 <% if @user.id == @current_user.id %>
+  <p><%= @user.mail %></p>
   <%= link_to("編集", "/users/#{@user.id}/edit") %>
 <% end %>
+
 <ul class="user-tabs">
   <li class="active"><%= link_to "投稿", "/users/#{@user.id}" %></li>
   <li><%= link_to "お気に入り", "/users/#{@user.id}/likes" %></li>
 </ul>
-<% if @impressions%>
+<%# 投稿があるなら表示 %>
+<%# <% if @impressions%> %>
   <% @impressions.each do |imp| %>
       <%= imp.story%>
   <% end%>
-<% end%>
+<%# <% end%> %>

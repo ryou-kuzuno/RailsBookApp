@@ -3,7 +3,7 @@
 <% end %>
 
 <div>
-    <%= form_for @new_comment, url: { controller: :comments, action: :reply } do |form|%>
+    <%= form_for @new_comment, url: { controller: :comments, action: :reply } do |form| %>
         <div>
           <%= form.label :コメント %>
           <%= form.text_field :comment %>

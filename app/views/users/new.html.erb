@@ -6,6 +6,7 @@
         <%= message %>
       </div>
     <% end %>
+
     <%= form_for @user , url: { controller: :users, action: :create } do |form| %>
       <div>
         <%= form.label :ユーザー名 %>
