@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  before_action :set_current_user
     before_action :ensure_correct_user, {only: [:edit, :update]}
 
     def show
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       #   redirect_to "/index"
       # end
     end
-
+    # 新規登録
     def create
       # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
       #form_forでの取り出し方
@@ -23,7 +23,6 @@ class UsersController < ApplicationController
         # thumbnail: "イメージ画像",
         password: params["user"]["password"]
       )
-      # raise @user.inspect
       if @user.save
         session[:user_id] = @user.id
         flash[:notice] = "ユーザー登録が完了しました"

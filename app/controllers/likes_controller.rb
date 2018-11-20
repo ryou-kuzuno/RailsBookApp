@@ -10,8 +10,8 @@ class LikesController < ApplicationController
             bookstore_id: params[:bookstore_id]
         )
         @like.save
-        redirect_to "/show/#{params[:_id]}"
         @likes_count = Like.where(bookstore_id: @like.bookstore_id).count
+        redirect_to "/show/#{params[:_id]}"
 
     end
 

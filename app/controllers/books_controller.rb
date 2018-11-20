@@ -1,13 +1,9 @@
 class BooksController < ApplicationController
-
+    before_action :set_current_user
     #感想一覧を表示するアクション
     def index
-        @books =Bookstore.all.order(created_at: :desc)
-        @impressions = Impression.all.order(created_at: :desc)
-        # where(
-        #     story: params[:story],
-        #     impression: params[:impression]
-        # )
+        @books =Bookstore.all
+        @impressions = Impression.all
     end
 
     #本の詳細画面でのアクション
@@ -55,7 +51,7 @@ class BooksController < ApplicationController
         #unknown attribute 'impression' for Impression.
         @impression = Impression.new(
             story: params["bookstore"]["impression"]["story"],
-            impression: params["bookstore"]["impression"]["impression"],
+            impressions: params["bookstore"]["impression"]["impressions"],
             user_id: params["bookstore"]["impression"]["user_id"],
             bookstore_id: @book.id
         )
@@ -73,13 +69,10 @@ class BooksController < ApplicationController
     #投稿の編集内容を反映するアクション
     def update
         @impression = Impression.find_by(id: params[:id])
-        @impression.story = params[:story]
-        @impression.impression = params[:impressions]
-        if params[:thumbnail]
-            # @user.thumbnail = "#{@user.id}.jpg"
-            thumbnail = params[:thumbnail]
-            File.binwrite "public/books_images/#{@user.thumbnail}", thumbnail.read
-        end
+        @impression.story = params[:impression][:story]
+        @impression.impression = params[:impression][:impressions]
+
+        # raise @impression.inspect
 
         if @impression.save
             redirect_to "/show/#{@impression.id}"
@@ -104,8 +97,10 @@ class BooksController < ApplicationController
 
     #投稿内容を削除するためのアクション
     def destroy
+        @book = Bookstore.find(params[:id])
         @impression = Impression.find(params[:id])
         @impression.destroy
+        @book.destroy
         flash[:notice] = "投稿を削除しました"
         redirect_to "/index"
     end

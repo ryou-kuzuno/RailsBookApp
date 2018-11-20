@@ -1,31 +1,31 @@
 
-<% @books.each do |book| %>
-  <div class="card">
-      <%= book.thumbnail %>
-      <div class="card-right">
-        <div class="title">
-          <%= book.title %>
+<% @books.zip(@impressions).each do |book , impression| %>
+  <div class="card-poket">
+    <div class="card">
+        <%= book.thumbnail %>
+        <div class="card-right">
+          <div class="title">
+            <%= book.title %>
+          </div>
+          <div class="author">
+            <%= book.author %>
+          </div>
         </div>
-        <div class="author">
-          <%= book.author %>
+      <div class="card-text">
+        <div class="story">
+          <%= impression.story %>
+        </div>
+        <div class="impressions">
+          <%= impression.impressions %>
         </div>
       </div>
-<% end %>
-<% @impressions.each do |impression| %>
-    <div class="card-text">
-      <div class="story">
-        <%= impression.story %>
-      </div>
-      <div class="impressions">
-        <%= impression.impressions %>
-      </div>
-    </div>
-    <div class="card-under">
-        <i class="material-icons hart">favorite</i>
-      <div>
-        <%= link_to "詳細", "/show/#{impression.id}" %>
+      <div class="card-under">
+          <i class="material-icons hart">favorite</i>
+        <div>
+          <%= link_to "詳細", "/show/#{impression.id}" %>
+        </div>
       </div>
     </div>
   </div>
-<% end%>
+<% end %>
 

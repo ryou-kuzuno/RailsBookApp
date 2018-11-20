@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+  before_action :set_current_user
   #投稿に対するコメントを作成するアクション
   def reply
     @book = Bookstore.find(params[:id])

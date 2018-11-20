@@ -1,4 +1,4 @@
-<%= form_for @impression , url: { 'controller' => 'books', 'action' => 'update'} do |imp|%>
+<%= form_for @impression , url: {controller: :books, action: :update} do |imp|%>
     <div class="card">
       <div class="text-div">
           <%= imp.label :あらすじ %>
@@ -8,9 +8,9 @@
       </div>
         <div class="card-under">
           <%= imp.submit '保存' %>
-<% end %>
         </div>
-        <%# #{}は要らない %>
-         <%= link_to "削除", "/#{@impression.id}/destroy", {method: "post"} %>
-         <%= link_to "戻る", "/show/#{@impression.id}.id"%>
+<% end %>
+         <%= link_to "削除", "/#{@impression.bookstore_id}/destroy", {method: "post"} %>
+         <%= link_to "戻る", "/show/#{@impression.bookstore_id}.id"%>
     </div>
+
