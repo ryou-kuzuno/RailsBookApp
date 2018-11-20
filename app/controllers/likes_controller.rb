@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+    before_action :set_current_user
 
     def like
         @imp = Impression.find_by(id: params[:id])
@@ -10,9 +11,7 @@ class LikesController < ApplicationController
             bookstore_id: params[:bookstore_id]
         )
         @like.save
-        @likes_count = Like.where(bookstore_id: @like.bookstore_id).count
-        redirect_to "/show/#{params[:_id]}"
-
+        redirect_to "/show/#{params[:bookstore_id]}"
     end
 
     def destroy

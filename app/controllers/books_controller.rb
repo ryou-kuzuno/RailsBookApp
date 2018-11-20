@@ -11,22 +11,35 @@ class BooksController < ApplicationController
         @book = Bookstore.find_by(
             id: params[:bookstore_id]
             )
-
-        # bookstore_idにしたら動いた
         @impressions = Impression.find_by(id: params[:bookstore_id])
-
         @likes_count = Like.where(
-            bookstore_id: params[:impressions_id]
+            user_id: params[:user_id]
             ).count
-
+        raise @like_count.inspect
         @new_comment = Comment.new
-
         @comments = Comment.where(
             comment: params[:comment],
             user_id: params[:nicenane],
             bookstore_id: params[:bookstore_id]
             )
     end
+
+    # def create likes_controllerの奴
+    #     @like = Like.new(
+    #         user_id: @current_user.id, 
+    #         bookstore_id: params[:bookstore_id]
+    #     )
+    #     @like.save
+    #     redirect_to "/show/#{params[:bookstore_id]}"
+    # end
+    # def destroy
+    #     @like = Like.find_by(
+    #         user_id: @current_user.id, 
+    #         likes: params[:bookstore_id]
+    #     )
+    #     @like.destroy
+    #     redirect_to "/show/#{params[:bookstore_id]}"
+    # end
 
     #新しく感想を投稿する画面のアクション
     def new
@@ -36,7 +49,10 @@ class BooksController < ApplicationController
 
     #感想の編集画面のアクション
     def edit
-        @impression = Impression.find_by(id: params[:bookstore_id])
+        # こちらでbookstore_idに対応する@impressionが無いことがエラーの原因
+        # id で検索をかけると、impression_idでの検索となってしまう。
+        # bookstore_idでの検索なので、idをbookstore_idに変更
+        @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
     end
 
     #新しい投稿を作成するアクション
@@ -68,9 +84,9 @@ class BooksController < ApplicationController
 
     #投稿の編集内容を反映するアクション
     def update
-        @impression = Impression.find_by(id: params[:id])
+        @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
         @impression.story = params[:impression][:story]
-        @impression.impression = params[:impression][:impressions]
+        @impression.impressions = params[:impression][:impressions]
 
         # raise @impression.inspect
 

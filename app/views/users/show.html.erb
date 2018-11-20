@@ -10,8 +10,9 @@
   <li><%= link_to "お気に入り", "/users/#{@user.id}/likes" %></li>
 </ul>
 <%# 投稿があるなら表示 %>
-<%# <% if @impressions%> %>
+<%# <% if @impressions%>
   <% @impressions.each do |imp| %>
       <%= imp.story%>
+      <%= imp.impressions%>
   <% end%>
-<%# <% end%> %>
+<%# <% end%>

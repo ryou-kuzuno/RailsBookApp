@@ -16,7 +16,8 @@
 
       <div class="card-under"> 
         <div>
-          <% if Like.find_by(user_id: @current_user.id, bookstore_id: @impressions.id) %>
+          <% if Like.find_by(likes: params[:likes]) %>
+          <%# (user_id: @current_user.id, bookstore_id: @impressions.id) %>
             <%= link_to "/likes/#{@impressions.id}/destroy", {method: "post"} do %>
               <span class="material-icons hart">favorite</span>
             <% end %>

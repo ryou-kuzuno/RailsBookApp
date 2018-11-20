@@ -9,7 +9,7 @@
       <li><%= link_to "お気に入り", "/users/#{@user.id}/likes" %></li>
     </ul>
 <% @likes.each do |like| %>
-  <% (@)book = Bookstore.find_by(id: like.book_id) %>
+  <% @book = Bookstore.find_by(id: like.bookstore_id) %>
     <% if @book%>
       <div>
         <%= link_to @user.nicename, "/users/#{@user.id}" %>
