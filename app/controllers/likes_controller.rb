@@ -8,16 +8,17 @@ class LikesController < ApplicationController
     def create
         @like = Like.new(
             user_id: @current_user.id, 
-            bookstore_id: params[:bookstore_id]
+            impression_id: params[:impression_id]
         )
-        @like.save
-        redirect_to "/show/#{params[:bookstore_id]}"
+        if @like.save
+            redirect_to "/show/#{params[:bookstore_id]}"
+        end
     end
 
     def destroy
         @like = Like.find_by(
             user_id: @current_user.id, 
-            bookstore_id: params[:bookstore_id]
+            impression_id: params[:impression_id]
         )
         @like.destroy
         redirect_to "/show/#{params[:bookstore_id]}"

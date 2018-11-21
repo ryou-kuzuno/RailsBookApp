@@ -1,10 +1,14 @@
 <%= form_for @impression , url: {controller: :books, action: :update} do |imp|%>
     <div class="card">
-      <div class="text-div">
+      <div class="card-text">
+        <div class="story">
           <%= imp.label :あらすじ %>
           <%= imp.text_area :story  %>
+        </div>
+        <div class="impressions">
           <%= imp.label :感想 %>
-          <%= imp.text_area :impressions %>
+          <%= imp.text_area :impressions%>
+        </div>
       </div>
         <div class="card-under">
           <%= imp.submit '保存' %>

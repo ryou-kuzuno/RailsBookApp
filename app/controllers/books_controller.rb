@@ -13,9 +13,10 @@ class BooksController < ApplicationController
             )
         @impressions = Impression.find_by(id: params[:bookstore_id])
         @likes_count = Like.where(
-            user_id: params[:user_id]
+            user_id: params[:user_id],
+            impression_id: params[:impression_id]
             ).count
-        raise @like_count.inspect
+        # raise @like_count.inspect
         @new_comment = Comment.new
         @comments = Comment.where(
             comment: params[:comment],
@@ -23,23 +24,6 @@ class BooksController < ApplicationController
             bookstore_id: params[:bookstore_id]
             )
     end
-
-    # def create likes_controllerの奴
-    #     @like = Like.new(
-    #         user_id: @current_user.id, 
-    #         bookstore_id: params[:bookstore_id]
-    #     )
-    #     @like.save
-    #     redirect_to "/show/#{params[:bookstore_id]}"
-    # end
-    # def destroy
-    #     @like = Like.find_by(
-    #         user_id: @current_user.id, 
-    #         likes: params[:bookstore_id]
-    #     )
-    #     @like.destroy
-    #     redirect_to "/show/#{params[:bookstore_id]}"
-    # end
 
     #新しく感想を投稿する画面のアクション
     def new

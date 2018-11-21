@@ -1,25 +1,47 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.user {
+  
+  h2{
+    text-align: center;
+  }
+  p {
+    text-align: center;
+  }
+}
 
-  .user-tabs {
-          margin-top: 40px;
-          background-color: white;
-          overflow: hidden;
-          box-shadow: 0 2px 6px #c1ced7;
+.switch {
+    // text-align: center;
+    ul {
+    width: 250px;
+    display: flex;
+    margin-top: 40px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 2px 6px #c1ced7;
+    }
     li {
-          float: left;
+        list-style: none;
       }
     li.active {
-          border-bottom: 2px solid #3ecdc6;
+        border-bottom: 2px solid #3ecdc6;
+        // 　link_toが<a>になるので
       a {
-          color: #57575f;
+        color: #57575f;
       }
     }
       a {
-          display: inline-block;
-          padding: 16px 30px;
-          color: #afb6bf;
+        display: inline-block;
+        padding: 16px 30px;
+        border: solid 1px rgb(229, 255, 0);
+        color: #afb6bf;
       }
-      
-  }
+}
+
+.user_story{
+    padding: 5px;
+    margin: 5px;
+    background-color: white;
+    text-align: center;
+}

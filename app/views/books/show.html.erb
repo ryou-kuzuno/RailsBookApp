@@ -3,26 +3,29 @@
     <div>
       <div class="card-img">画像</div>
       <div class="card-right">
+        <p>作者</p>
         <h1><%= @book.author%></h1>
+        <p>タイトル</p>
         <h2><%= @book.title %></h2>
       </div>
     </div>
 
       <%#  1つの本に対して感想は複数存在する %>
-      <%# <% @impressions.each do |impressions| %> 
+      <%# <% @impressions.each do |impressions| %>
+        <p>題名</p> 
         <%= @impressions.story %>
+        <p>かんそう</p>
         <%= @impressions.impressions %>
-      <%# <% end %>
 
       <div class="card-under"> 
         <div>
           <% if Like.find_by(likes: params[:likes]) %>
           <%# (user_id: @current_user.id, bookstore_id: @impressions.id) %>
-            <%= link_to "/likes/#{@impressions.id}/destroy", {method: "post"} do %>
+            <%= link_to "/likes/#{@impressions.id}/destroy",{impression_id: @impressions.id  , :method => :post} do %>
               <span class="material-icons hart">favorite</span>
             <% end %>
           <% else %>
-            <%= link_to "/likes/#{@impressions.id}/create", {method: "post"}  do %>
+            <%= link_to "/likes/#{@impressions.id}/create",impression_id: @impressions.id, :method => :post  do %>
               <span class="material-icons hart">favorite</span>
             <% end %>
           <% end %>
