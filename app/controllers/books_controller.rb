@@ -8,15 +8,9 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
-        @book = Bookstore.find_by(
-            id: params[:bookstore_id]
-            )
-        @impressions = Impression.find_by(id: params[:bookstore_id])
-        @likes_count = Like.where(
-            user_id: params[:user_id],
-            impression_id: params[:impression_id]
-            ).count
-        # raise @like_count.inspect
+        # このあたりのデータの取得方法がhas_manyやbelongs_toを使ってモデル間の関係を定義しているので、直感的に記述できる
+        @book = Bookstore.find(params[:bookstore_id])
+        @impressions = @book.impressions
         @new_comment = Comment.new
         @comments = Comment.where(
             comment: params[:comment],

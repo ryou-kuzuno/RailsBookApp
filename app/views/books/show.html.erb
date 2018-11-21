@@ -11,32 +11,46 @@
     </div>
 
       <%#  1つの本に対して感想は複数存在する %>
-      <%# <% @impressions.each do |impressions| %>
+      <% @impressions.each do |impression| %>
         <p>題名</p> 
-        <%= @impressions.story %>
+        <%= impression.story %>
         <p>かんそう</p>
-        <%= @impressions.impressions %>
+        <%= impression.impressions %>
 
       <div class="card-under"> 
         <div>
           <% if Like.find_by(likes: params[:likes]) %>
-          <%# (user_id: @current_user.id, bookstore_id: @impressions.id) %>
-            <%= link_to "/likes/#{@impressions.id}/destroy",{impression_id: @impressions.id  , :method => :post} do %>
+            <%= link_to "/likes/#{impression.id}/destroy",{impression_id: impression.id  , :method => :post} do %>
               <span class="material-icons hart">favorite</span>
+              <%= impression.likes.count %>
             <% end %>
           <% else %>
-            <%= link_to "/likes/#{@impressions.id}/create",impression_id: @impressions.id, :method => :post  do %>
-              <span class="material-icons hart">favorite</span>
+            <%  #メモ
+                # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+                # パラメータを渡してなにか処理をする、といった場合はformを使う
+                #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+            %>
+            <%= form_with(model: :likes, scope: :likes, url: likes_create_path, local: :false) do |form| %>
+
+                <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+                <% # テキストからのボタンを作り、上からスタイルを当てる%>
+                <%= form.button '', :class => "material-icons hart" %>
+                <%= impression.likes.count %>
+
+                <%= form.hidden_field :user_id, :value => @current_user.id %>
+                <%= form.hidden_field :impression_id, :value => impression.id %>
+                <%= form.hidden_field :bookstore_id, :value => params[:bookstore_id] %>
+
             <% end %>
           <% end %>
-          <%= @likes_count %>
         </div>
         <div>
-          <%= link_to "編集", "/#{@impressions.id}/edit"%>
-          <%= link_to "削除", "/#{@impressions.id}/destroy", :method => :post %>
+          <%= link_to "編集", "/#{impression.id}/edit"%>
+          <%= link_to "削除", "/#{impression.id}/destroy", :method => :post %>
           <%= link_to "戻る", "/index"%>
         </div>
       </div>
+    <% end %>
 </div>
 
 <% render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment } %> 
