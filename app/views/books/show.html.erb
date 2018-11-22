@@ -19,7 +19,8 @@
 
       <div class="card-under"> 
         <div>
-          <% if Like.find_by(likes: params[:likes]) %>
+          <% my_like = Like.find_by(impression_id: impression.id, user_id: @current_user.id)%>
+          <% if my_like %>
             <%= link_to "/likes/#{impression.id}/destroy",{impression_id: impression.id  , :method => :post} do %>
               <span class="material-icons hart">favorite</span>
               <%= impression.likes.count %>
