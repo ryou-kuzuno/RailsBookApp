@@ -1,6 +1,5 @@
 <%# 本の詳細表示 %>
 <div class="card-show">
-    <div>
       <div class="card-img">画像</div>
       <div class="card-right">
         <p>作者</p>
@@ -8,35 +7,48 @@
         <p>タイトル</p>
         <h2><%= @book.title %></h2>
       </div>
-    </div>
 
       <%#  1つの本に対して感想は複数存在する %>
-      <%# <% @impressions.each do |impressions| %>
+      <% @impressions.each do |impressions| %>
         <p>題名</p> 
-        <%= @impressions.story %>
+        <%= impressions.story %>
         <p>かんそう</p>
-        <%= @impressions.impressions %>
+        <%= impressions.impressions %>
 
       <div class="card-under"> 
         <div>
-          <% if Like.find_by(likes: params[:likes]) %>
-          <%# (user_id: @current_user.id, bookstore_id: @impressions.id) %>
-            <%= link_to "/likes/#{@impressions.id}/destroy",{impression_id: @impressions.id  , :method => :post} do %>
+          <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
+          <%# <% if my_like find_byで取る値が間違っていた。この部分で欲しかったのはimp_id と　user_idだから、イーチの変数と現在のユーザーアイディを渡す
+          params[:impressions][:impression_id] では取れない%>
+           <%  #メモ
+              # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
+              # パラメータを渡してなにか処理をする、といった場合はformを使う
+              #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
+          %>
+            <%= link_to "/likes/#{impressions.id}/destroy",{impression_id: impressions.id  , :method => :post} do %>
               <span class="material-icons hart">favorite</span>
+              <%= impressions.likes.count %>
             <% end %>
           <% else %>
-            <%= link_to "/likes/#{@impressions.id}/create",impression_id: @impressions.id, :method => :post  do %>
-              <span class="material-icons hart">favorite</span>
+            <%= form_with(model: :likes, scope: :likes, url: likes_create_path, local: :false) do |form| %>
+                 <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+                <% # テキストからのボタンを作り、上からスタイルを当てる%>
+                <span class="material-icons hart">favorite
+                  <%= form.button ''%>
+                </span>
+                 <%= form.hidden_field :user_id, :value => @current_user.id %>
+                <%= form.hidden_field :impression_id, :value => impressions.id %>
+                <%= form.hidden_field :bookstore_id, :value => params[:bookstore_id] %>
             <% end %>
           <% end %>
-          <%= @likes_count %>
         </div>
         <div>
-          <%= link_to "編集", "/#{@impressions.id}/edit"%>
-          <%= link_to "削除", "/#{@impressions.id}/destroy", :method => :post %>
+          <%= link_to "編集", "/#{impressions.id}/edit"%>
+          <%= link_to "削除", "/#{impressions.id}/destroy", :method => :post %>
           <%= link_to "戻る", "/index"%>
         </div>
       </div>
+      <% end %>
 </div>
 
 <% render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment } %> 

@@ -8,10 +8,9 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
-        @book = Bookstore.find_by(
-            id: params[:bookstore_id]
-            )
-        @impressions = Impression.find_by(id: params[:bookstore_id])
+        @book = Bookstore.find(params[:bookstore_id])
+        #　ひと目でわかりやすい記述
+        @impressions = @book.impressions
         @likes_count = Like.where(
             user_id: params[:user_id],
             impression_id: params[:impression_id]

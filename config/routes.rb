@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   post   ":id/destroy"=> "books#destroy"#投稿を削除する
   # form_forがうまく表示されなかったのはbookstore_idになっていなかったから
   post   "show/:bookstore_id/comment" => "books#reply"
-  post   "likes/:bookstore_id/create"  => "likes#create"
+  # メモ：controller名 + action + （必要に応じてid） という形式がrails標準
+  # こうすることでbundle exec rails routes を打ったときに、prefixとして、likes_create という名前ができる
+  post   "likes/create"  => "likes#create"
   post   "likes/:bookstore_id/destroy" => "likes#destroy"
 
   post   "update/:id" => "users#update"#ユーザーの変更を反映
