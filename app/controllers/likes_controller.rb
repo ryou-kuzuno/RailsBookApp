@@ -3,6 +3,8 @@ class LikesController < ApplicationController
 
     def like
         @imp = Impression.find_by(id: params[:id])
+        @likes = Like.where(impression_id: params[:likes][:impression],
+                            user_id: @current_user.id)
     end
 
     def create

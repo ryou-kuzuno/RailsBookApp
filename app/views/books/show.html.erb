@@ -33,9 +33,11 @@
             <%= form_with(model: :likes, scope: :likes, url: likes_create_path, local: :false) do |form| %>
                  <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
                 <% # テキストからのボタンを作り、上からスタイルを当てる%>
-
-                  <%= form.submit '',:class => "material-icons hart", :html => "<i>favorite</i>" %>
-                  <%# <button type="submit"><i class="material-icons hart">favorite</i></button> %>
+                  <%# <button type="submit" ><i class="material-icons hart">favorite</i></button> %>
+                  <%# <i class="material-icons hart"><button type="submit" >favorite</button></i> %>
+                  <%# <span class="material-icons hart">favorite<button type="subit"></button></span> %>
+                 <button type="subit", class="button"><span class="material-icons hart">favorite</span></button><%#一番近い気がする%>
+                  <%# <%= form.submit '',:class => "material-icons hart", :html => "<i>favorite</i>" %>
                  <%= form.hidden_field :user_id, :value => @current_user.id %>
                 <%= form.hidden_field :impression_id, :value => impressions.id %>
                 <%= form.hidden_field :bookstore_id, :value => params[:bookstore_id] %>

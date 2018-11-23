@@ -13,11 +13,8 @@
 
 <%# お気に入りがあるなら表示 %>
 <% @likes.each do |like| %>
-  <% @book = Bookstore.find_by(id: like.bookstore_id) %>
-    <% if @book%>
-      <div>
-        <%= link_to @user.nicename, "/users/#{@user.id}" %>
-        <%= link_to @book.title, "/show/#{@book.id}" %>
-      </div>
-    <% end%>
+  <div class="user_story">
+    <%= like.user.nicename%>
+    <%= like.impression.story%>
+  </div>
 <% end%>
