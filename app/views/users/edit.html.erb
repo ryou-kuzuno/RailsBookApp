@@ -4,14 +4,14 @@
   </div>
 <% end %>
 
-<%= form_for(@user, url: user_path(@user), html: {method: "patch"}) do |form| %>
+<%= form_for @user, url: {controller: :users, action: :update} do |form| %>
   <div>
     <%= form.label :ユーザー名 %>
-    <%= form.text_field :nicename ,value="<%= form.nicename %>"%>
+    <%= form.text_field :nicename %>
   </div>
   <div>
     <%= form.label :メールアドレス %>
-    <%= form.email_field :mail ,value="<%= form.mail %>"%>
+    <%= form.email_field :mail %>
   </div>
   <div>
     <%= form.submit '保存' %>

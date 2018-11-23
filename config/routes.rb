@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   get    "search"  =>  "books#search" #検索結果を出力
 
-  post   "update/:id" => "users#update"#ユーザーの変更を反映
+  patch  "user/:id/update" => "users#update"#ユーザーの変更を反映
   get    "users/:id/edit" => "users#edit" #ユーザー編集画面
   get    "users/:id/likes"     => "users#likes"#お気に入り画面
   get    "users/:id"    => "users#show"#ユーザーの詳細画面
