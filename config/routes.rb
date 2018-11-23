@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # こうすることでbundle exec rails routes を打ったときに、prefixとして、likes_create という名前ができる
   post   "likes/create"  => "likes#create"
   post   "likes/:bookstore_id/destroy" => "likes#destroy"
+  
+  get    "search"  =>  "books#search" #検索結果を出力
 
   post   "update/:id" => "users#update"#ユーザーの変更を反映
   get    "users/:id/edit" => "users#edit" #ユーザー編集画面

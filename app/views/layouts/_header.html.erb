@@ -28,7 +28,12 @@
         <li><%= link_to "新規登録", "/signup" %></li>
         <li>
           <a href="search" class="search">検索する</a>
-          <input type="search" class="search-box">
+          <%# <input type="search" class="search-box"> %>
+          <%= form_with(model: :bookstore,  url: "/search") do |form| %>
+          <%= form.text_field_tag :search %>
+          <%= form.submit_tag 'Search', :name => nil %>
+          <% end%>
+          <p>user search</p>
         </li>
       </ul>
     <% end%>

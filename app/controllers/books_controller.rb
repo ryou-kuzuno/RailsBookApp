@@ -103,4 +103,9 @@ class BooksController < ApplicationController
         flash[:notice] = "投稿を削除しました"
         redirect_to "/index"
     end
+
+    def search
+        #ViewのFormで取得したパラメータをモデルに渡す
+        @books = bookstore.search(params[:search])
+    end
 end
