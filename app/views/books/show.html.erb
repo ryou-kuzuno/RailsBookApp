@@ -9,7 +9,7 @@
       </div>
 
       <%#  1つの本に対して感想は複数存在する %>
-      <% @impressions.each do |impressions| %>
+      <% @impressions.each_with_index do |impressions, index| %>
         <p>題名</p> 
         <%= impressions.story %>
         <p>かんそう</p>
@@ -30,17 +30,14 @@
               <%= impressions.likes.count %>
             <% end %>
           <% else %>
-            <%= form_with(model: :likes, scope: :likes, url: likes_create_path, local: :false) do |form| %>
-                 <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+            <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>
+                <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
                 <% # テキストからのボタンを作り、上からスタイルを当てる%>
-                  <%# <button type="submit" ><i class="material-icons hart">favorite</i></button> %>
-                  <%# <i class="material-icons hart"><button type="submit" >favorite</button></i> %>
-                  <%# <span class="material-icons hart">favorite<button type="subit"></button></span> %>
-                 <button type="subit", class="button"><span class="material-icons hart">favorite</span></button><%#一番近い気がする%>
-                  <%# <%= form.submit '',:class => "material-icons hart", :html => "<i>favorite</i>" %>
-                 <%= form.hidden_field :user_id, :value => @current_user.id %>
+                <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる %>
+                <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>
+                <%= form.hidden_field :user_id, :value => @current_user.id %>
                 <%= form.hidden_field :impression_id, :value => impressions.id %>
-                <%= form.hidden_field :bookstore_id, :value => params[:bookstore_id] %>
+                <%= form.hidden_field :bookstore_id, :value => params[:bookstore_id] %> 
             <% end %>
           <% end %>
         </div>
@@ -54,6 +51,28 @@
 </div>
 
 <% render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment } %> 
+
+<%
+# 通常javascriptの処理は、.jsファイルに記述する。
+# 今は暫定で、HTML（erb）に直書きしている
+# javascriptを学習する際に
+# - asset pipline
+# - jsファイルの読み込み
+# - jsファイルの書き方
+# などを一緒に学習しましょう
+# 
+%>
+<script>
+// Like処理のsubmitをjavascriptで発火させる
+// idを指定できるようにしているのは、複数のimpression（感想）があって、like-formが複数できる予定だから
+function fireLikeSubmit(id) {
+  // document ... 開いているHTMLのページ全部、というくらいの意味
+  // forms ... documentにぶら下がっているform一覧。formのidで区別可能
+  // forms[id] ... 指定されたid名でformを識別する
+  // submit ... submitボタンを押したのと同じ効果
+  document.forms[id].submit();
+}
+</script>
 
 
 
