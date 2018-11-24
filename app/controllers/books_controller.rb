@@ -54,11 +54,11 @@ class BooksController < ApplicationController
         )
 
         if @book.save
-            raise 'hoge'.inspect
             redirect_to "/index"
         else
-            # 必要に応じてエラーメッセージを付与して上げる
-            render 'books/new'
+            # 必要に応じてエラーメッセージを付与して上げる（sessionなど使うと良い０
+            # urlもbook/newに変更したいのでredirect_toを使っている
+            redirect_to '/book/new'
         end
     end
 
