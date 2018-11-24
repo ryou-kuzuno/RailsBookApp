@@ -33,13 +33,14 @@ class UsersController < ApplicationController
     end
 
     def edit
-      @user = User.find_by(id: params[:id])
+      @user = User.find_by(id: @current_user.id)
     end
 
     def update
-      @user = User.find_by(mail: params[:user][:mail],
-                          nicename: params[:user][:nicename]
-      )
+      @user = User.find_by(id: @current_user.id)
+      @user.mail =  params[:user][:mail]
+      @user.nicename =  params[:user][:nicename]
+      
       # raise @user.inspect @userに値が入らない。paramsで値はとれている。
       if @user.save
         flash[:notice] = "ユーザー情報を編集しました"
