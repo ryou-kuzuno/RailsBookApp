@@ -3,7 +3,8 @@
       <div class="card-img">画像</div>
       <div class="card-right">
         <p>作者</p>
-        <h1><%= @book.author%></h1>
+        <% # jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
+        <h1 onClick='changeBookTitle()' id="js-book-title"><%= @book.author%></h1>
         <p>タイトル</p>
         <h2><%= @book.title %></h2>
       </div>
@@ -30,10 +31,17 @@
               <%= impressions.likes.count %>
             <% end %>
           <% else %>
-            <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>
+            <%= form_with(model: :likes, id: "js-like-form-#{index}", url: likes_create_path, local: :false) do |form| %>
                 <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
                 <% # テキストからのボタンを作り、上からスタイルを当てる%>
                 <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる %>
+                <%
+                # 1. submit処理（submitボタン）が書いてあった。
+                # 2. なので、submitボタンにcssを当てれば良かった
+                # 3. ただし、material-icons の仕様的に（どうやら）formには直接デザインを当てれなさそう
+                # 4. spanを使ったまま、submitをするにはどうしたらよいか？ → これは技術的に実現可能（JavaScriptで）
+                # 5. javascriptで指定したformをsubmitする、という機能がある
+                %>  
                 <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>
                 <%= form.hidden_field :user_id, :value => @current_user.id %>
                 <%= form.hidden_field :impression_id, :value => impressions.id %>
@@ -71,6 +79,31 @@ function fireLikeSubmit(id) {
   // forms[id] ... 指定されたid名でformを識別する
   // submit ... submitボタンを押したのと同じ効果
   document.forms[id].submit();
+}
+
+function changeBookTitle() {
+  // rubyでいうところのputs
+  // 終わりにセミコロンが必要
+  // console.log('タイトルが押されました');
+
+  // アラートを出すこともできる
+  // alert('アラート');
+
+  // this というキーワードで自分自身（ページ全体）を参照できる
+  // console.log(this);
+
+  // 変数の前にvarをつける
+  // 今どきはletになっている（新しいjs）
+  // ruby ... title_object （スネークケース）
+  // js   ... titleObject（キャメルケース）※ 他にJavaとかもキャメルケースが多い
+  let titleObject = document.getElementById('js-book-title');
+  titleObject.style.color = 'blue'
+
+  // デバックは、chrome上で行う
+  // 1. エラーが起きたファイルを開く
+  // 2. ブレークポイントを貼る
+  // 3. ブラウザをで画面リロード
+  // 4. 処理を走らせて変数や処理を確認する（例：ボタンを押す）
 }
 </script>
 
