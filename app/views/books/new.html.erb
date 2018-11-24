@@ -11,7 +11,7 @@
         </div>
       </div>
       <%# fields_for　は複数モデルを使うときに使う %>
-      <%= book.fields_for @impression do |imp|%>
+      <%= book.fields_for @book.impressions.build do |imp|%>
         <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
         <div class="card-text">
           <div class="story">

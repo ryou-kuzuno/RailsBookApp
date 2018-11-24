@@ -40,28 +40,25 @@ class BooksController < ApplicationController
 
     #新しい投稿を作成するアクション
     def create
-        # book_idを確定させるために先に@book.saveをしておく必要がある。
-        # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
         @book = Bookstore.new(
             title: params["bookstore"]["title"],
             author: params["bookstore"]["author"],
             )
-        @book.save
-        #unknown attribute 'impression' for Impression.
-        @impression = Impression.new(
+
+        # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
+        # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
+        impression = @book.impressions.build(
             story: params["bookstore"]["impression"]["story"],
             impressions: params["bookstore"]["impression"]["impressions"],
             user_id: params["bookstore"]["impression"]["user_id"],
-            bookstore_id: @book.id
         )
 
-        # raise @impression.inspect
-        if @impression.save
+        if @book.save
+            raise 'hoge'.inspect
             redirect_to "/index"
         else
-            # @book.saveを取り消す必要がある（データを消しているだけ）
-            @book.destroy
-            render "new"
+            # 必要に応じてエラーメッセージを付与して上げる
+            render 'books/new'
         end
     end
 
