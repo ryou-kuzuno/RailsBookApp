@@ -42,12 +42,12 @@ class BooksController < ApplicationController
     def create
         # book_idを確定させるために先に@book.saveをしておく必要がある。
         # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
-        @book = Bookstore.new(
-            title: params["bookstore"]["title"],
-            author: params["bookstore"]["author"],
-            )
+        @book = Bookstore.new(title: params["bookstore"]["title"],
+                              author: params["bookstore"]["author"]
+        )
          # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
         # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
+        
         impression = @book.impressions.build(
             story: params["bookstore"]["impression"]["story"],
             impressions: params["bookstore"]["impression"]["impressions"],
