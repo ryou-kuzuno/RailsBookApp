@@ -19,15 +19,15 @@
 
           <div class="card-under"> 
             <div>
-              <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
+              <% if my_like = Like.find_by(bookstore_id: impressions.id, user_id: @current_user.id)%>
               <%# <% if my_like find_byで取る値が間違っていた。この部分で欲しかったのはimp_id と　user_idだから、イーチの変数と現在のユーザーアイディを渡す
-              params[:impressions][:impression_id] では取れない%>
+              params[:impressions][:bookstore_id] では取れない%>
               <%  #メモ
                   # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
                   # パラメータを渡してなにか処理をする、といった場合はformを使う
                   #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
               %>
-                <%= link_to "/likes/#{impressions.id}/destroy",{impression_id: impressions.id  , :method => :post} do %>
+                <%= link_to "/likes/#{impressions.id}/destroy",{bookstore_id: impressions.id  , :method => :post} do %>
                   <span class="material-icons hart">favorite</span>
                   <%= impressions.likes.count %>
                 <% end %>
@@ -41,7 +41,7 @@
                       <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
                       <%= impressions.likes.count %>
                       <%= form.hidden_field :user_id, :value => @current_user.id %>
-                      <%= form.hidden_field :impression_id, :value => impressions.id %>
+                      <%= form.hidden_field :bookstore_id, :value => impressions.id %>
                 <% end %>
               <% end %>
           </div>
@@ -79,4 +79,4 @@ function fireLikeSubmit(id) {
 }
 </script>
 <%# イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
-<%= render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment , impression_id: @impressions} %>
+<%= render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment , bookstore_id: @impressions} %>

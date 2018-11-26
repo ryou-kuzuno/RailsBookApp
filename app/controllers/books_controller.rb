@@ -8,18 +8,18 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
-        @impressions = Impression.find(params[:impression_id])
+        @impressions = Impression.find(params[:bookstore_id])
         #　ひと目でわかりやすい記述
         @likes_count = Like.where(
             user_id: params[:user_id],
-            impression_id: params[:impression_id]
+            bookstore_id: params[:bookstore_id]
             ).count
         # raise @like_count.inspect
         @new_comment = Comment.new
         @comments = Comment.where(
             comment: params[:comment],
             user_id: params[:nicenane],
-            impression_id: params[:impression_id]
+            bookstore_id: params[:bookstore_id]
             )
     end
 
@@ -31,7 +31,7 @@ class BooksController < ApplicationController
 
     #感想の編集画面のアクション
     def edit
-        @impression = Impression.find_by(impression_id: params[:impression_id])
+        @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
     end
 
     #新しい投稿を作成するアクション
@@ -48,7 +48,7 @@ class BooksController < ApplicationController
             story: params["bookstore"]["impression"]["story"],
             impressions: params["bookstore"]["impression"]["impressions"],
             user_id: params["bookstore"]["impression"]["user_id"],
-            impression_id: @book.id
+            bookstore_id: @book.id
         )
         # raise  impression.inspect 
         # raise @impression.inspect
@@ -65,7 +65,7 @@ class BooksController < ApplicationController
 
     #投稿の編集内容を反映するアクション
     def update
-        @impression = Impression.find_by(impression_id: params[:impression_id])
+        @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
         @impression.story = params[:impression][:story]
         @impression.impressions = params[:impression][:impressions]
 
@@ -81,7 +81,7 @@ class BooksController < ApplicationController
     #投稿に対するコメントを作成するアクション
   def reply
     # @imp = Impression.find(params[:id])
-    comment_params = params["comment"].permit(:impression_id,:comment, :user_id)
+    comment_params = params["comment"].permit(:bookstore_id,:comment, :user_id)
     # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする。
     # raise comment_params.inspect
     @new_comment = Comment.new(comment_params)

@@ -14,7 +14,7 @@
           <%= imp.submit '保存' %>
         </div>
 <% end %>
-         <%= link_to "削除", "/#{@impression.impression_id}/destroy", {method: "post"} %>
-         <%= link_to "戻る", "/show/#{@impression.impression_id}.id"%>
+         <%= link_to "削除", "/#{@impression.bookstore_id}/destroy", {method: "post"} %>
+         <%= link_to "戻る", "/show/#{@impression.bookstore_id}.id"%>
     </div>
 
