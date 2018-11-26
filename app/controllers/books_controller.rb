@@ -8,9 +8,8 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
-        @book = Bookstore.find(params[:bookstore_id])
+        @impressions = Impression.find(params[:impression_id])
         #　ひと目でわかりやすい記述
-        @impressions = @book.impressions
         @likes_count = Like.where(
             user_id: params[:user_id],
             impression_id: params[:impression_id]
@@ -20,7 +19,7 @@ class BooksController < ApplicationController
         @comments = Comment.where(
             comment: params[:comment],
             user_id: params[:nicenane],
-            bookstore_id: params[:bookstore_id]
+            impression_id: params[:impression_id]
             )
     end
 
@@ -32,10 +31,7 @@ class BooksController < ApplicationController
 
     #感想の編集画面のアクション
     def edit
-        # こちらでbookstore_idに対応する@impressionが無いことがエラーの原因
-        # id で検索をかけると、impression_idでの検索となってしまう。
-        # bookstore_idでの検索なので、idをbookstore_idに変更
-        @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
+        @impression = Impression.find_by(impression_id: params[:impression_id])
     end
 
     #新しい投稿を作成するアクション
@@ -52,10 +48,11 @@ class BooksController < ApplicationController
             story: params["bookstore"]["impression"]["story"],
             impressions: params["bookstore"]["impression"]["impressions"],
             user_id: params["bookstore"]["impression"]["user_id"],
-            bookstore_id: @book.id
+            impression_id: @book.id
         )
-
+        # raise  impression.inspect 
         # raise @impression.inspect
+        # if @book.save
         if @book.save
             redirect_to "/index"
         else
@@ -68,7 +65,7 @@ class BooksController < ApplicationController
 
     #投稿の編集内容を反映するアクション
     def update
-        @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
+        @impression = Impression.find_by(impression_id: params[:impression_id])
         @impression.story = params[:impression][:story]
         @impression.impressions = params[:impression][:impressions]
 
@@ -83,8 +80,8 @@ class BooksController < ApplicationController
 
     #投稿に対するコメントを作成するアクション
   def reply
-    @book = Bookstore.find(params[:id])
-    comment_params = params["comment"].permit(:bookstore_id,:comment, :user_id)
+    # @imp = Impression.find(params[:id])
+    comment_params = params["comment"].permit(:impression_id,:comment, :user_id)
     # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする。
     # raise comment_params.inspect
     @new_comment = Comment.new(comment_params)

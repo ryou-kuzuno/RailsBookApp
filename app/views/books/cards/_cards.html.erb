@@ -1,21 +1,25 @@
-
+<%# 二つのテーブルをつなげるzipオブジェクトを使ってeachしている。こんなことせんでも二つに分けて出来そうやけどそうしたらエラーが出た？ %>
 <% @books.zip(@impressions).each do |book , impression| %>
   <div class="card-poket">
     <div class="card">
+        <%# 備忘録。画像も表示させたいという忘れないように。%>
         <%= book.thumbnail %>
         <div class="card-right">
           <div class="title">
           <p>作者</p>
+          <%# 変数bookのtitleメソッドを取り出す%>
             <%= book.title %>
           </div>
           <div class="author">
             <p>タイトル</p>
+            <%# controllerでテーブルから情報を受け取った@booksの変数bookからauthorを出力%>
             <%= book.author %>
           </div>
         </div>
       <div class="card-text">
       <p>題名</p>
         <div class="story">
+        <%# controllerでテーブルから情報を受け取った@impressionsから %>
           <%= impression.story %>
         </div>
         <%# <div class="impressions">
@@ -24,6 +28,7 @@
       </div>
       <div class="card-under">
         <div>
+        <%# Impressionテーブルのidを使って詳細画面へのリンクを作る　%>
           <%= link_to "詳細", "/show/#{impression.id}" %>
         </div>
       </div>

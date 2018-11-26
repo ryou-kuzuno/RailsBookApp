@@ -3,9 +3,10 @@
       <div class="card-img">画像</div>
       <div class="card-right">
         <p>作者</p>
+        <%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
         <h1><%= @book.author%></h1>
         <p>タイトル</p>
-        <h2><%= @book.title %></h2>
+        <h1><%= @book.title %></h1>
       </div>
 
       <%#  1つの本に対して感想は複数存在する %>
@@ -41,21 +42,20 @@
                       <%= impressions.likes.count %>
                       <%= form.hidden_field :user_id, :value => @current_user.id %>
                       <%= form.hidden_field :impression_id, :value => impressions.id %>
-                      <%= form.hidden_field :bookstore_id, :value => params[:bookstore_id] %>
                 <% end %>
               <% end %>
           </div>
         </div>
         <div>
-          <%= link_to "編集", "/#{impressions.id}/edit"%>
-          <%= link_to "削除", "/#{impressions.id}/destroy", :method => :post %>
+          <% if @current_user.id == impressions.user.id %>
+            <%= link_to "編集", "/#{impressions.id}/edit"%>
+            <%= link_to "削除", "/#{impressions.id}/destroy", :method => :post %>
+          <% end%>
           <%= link_to "戻る", "/index"%>
         </div>
       </div>
       <% end %>
 </div>
-
-<% render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment } %> 
 
 <%
 # 通常javascriptの処理は、.jsファイルに記述する。
@@ -78,4 +78,5 @@ function fireLikeSubmit(id) {
   document.forms[id].submit();
 }
 </script>
-
+<%# イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
+<%= render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment , impression_id: @impressions} %>

@@ -13,7 +13,7 @@ class LikesController < ApplicationController
             impression_id: params[:likes][:impression_id]
         )
         if @like.save
-            redirect_to "/show/#{params[:likes][:bookstore_id]}"
+            redirect_to "/show/#{params[:likes][:impression_id]}"
         end
     end
 
@@ -23,7 +23,7 @@ class LikesController < ApplicationController
             # impression_id: params[:likes][:impression_id]
         )
         @like.destroy
-        redirect_to "/show/#{params[:bookstore_id]}"
+        redirect_to "/show/#{params[:impression_id]}"
     end
 
 end

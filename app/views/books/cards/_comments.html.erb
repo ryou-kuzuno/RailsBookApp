@@ -1,3 +1,5 @@
+<%# コメントがされたらここに表示される。コメントが古いほうが上に出る %>
+<%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
 
     <% @comments.each do |comment| %>
         <%= comment.comment %>
@@ -9,9 +11,10 @@
           <%= form.label :コメント %>
           <%= form.text_field :comment %>
           <%# 見えないけれどフォームに送信される。 %>
-          <%= form.hidden_field :user_id ,:value => "user" %>
-          <%= form.hidden_field :bookstore_id ,:value => "impression" %>
+          <%= form.hidden_field :user_id ,:value => @current_user.id %>
+          <%= form.hidden_field :impression_id ,:value => @impressions %>
         </div>
+        <%# これもエンターキーかな %>
         <%= form.submit 'コメントする ' %>
     <% end%>
 </div>

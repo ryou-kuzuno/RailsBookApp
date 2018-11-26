@@ -10,8 +10,8 @@
           <%= book.text_field :author %>
         </div>
       </div>
-      <% # fields_for　は複数モデルを使うときに使う %>
-      <% # @impressions というインスタンスを用意する必要なく、@bookと関連付けられているという仕組みを使って、空のimpressionsを作る %>
+      <%# fields_for　は複数モデルを使うときに使う %>
+      <%# @impressions というインスタンスを用意する必要なく、@bookと関連付けられているという仕組みを使って、空のimpressionsを作る %>
       <%= book.fields_for @book.impressions.build do |imp|%>
         <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
         <div class="card-text">
@@ -26,7 +26,7 @@
         </div>
       <div class="card-under">
         <%# <%= book.submit '投稿', :onclick => "submit();"%>
-        <% # book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
+        <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
         <button type="button" onclick="submit();">送信</button>
 
       </div>
