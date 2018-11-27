@@ -5,15 +5,14 @@
 <% end %>
 
 <%= form_for @user, url: {controller: :users, action: :update} do |form| %>
-  <div>
-    <%= form.label :ユーザー名 %>
-    <%= form.text_field :nicename %>
-  </div>
-  <div>
-    <%= form.label :メールアドレス %>
-    <%= form.email_field :mail %>
-  </div>
-  <div>
+
+  <%= form.label :ユーザー名 ,:class => "name_form" %>
+  <%= form.text_field :nicename %>
+  
+  <%= form.label :メールアドレス , :class => "mail_form"%>
+  <%= form.email_field :mail %>
+  
+  <div class="save_form">
     <%= form.submit '保存' %>
   </div>
 <% end %>

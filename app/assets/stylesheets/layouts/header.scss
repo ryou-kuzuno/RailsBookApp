@@ -3,17 +3,19 @@
 .header {
     // overflow: visible;
     position: fixed;
-    height: 56px;
     top: 0;/*基準を画面の左上に*/
     left: 0;
     /*以下装飾*/
-    width: 95%;
+    width: 100%;
     color:rgb(5, 5, 5);
-    background-color: #e0e7e8;
 }
 
 .header-div {
         display: flex;
+        text-align: center;
+        height: 75px;
+        box-shadow: 0 2px 6px #c1ced7;
+        background-color: #e0e7e8;
     ul {
         display: flex;
         list-style: none;
@@ -39,7 +41,7 @@
     
 
     .search {
-        height: 17px;
+        display: flex;
     }
 
     .search-box {

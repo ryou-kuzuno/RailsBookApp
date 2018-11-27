@@ -3,14 +3,14 @@ class LikesController < ApplicationController
 
     def like
         @imp = Impression.find_by(id: params[:id])
-        @likes = Like.where(bookstore_id: params[:likes][:impression],
+        @likes = Like.where(impression_id: params[:likes][:impression],
                             user_id: @current_user.id)
     end
 
     def create
         @like = Like.new(
             user_id: @current_user.id, 
-            bookstore_id: params[:likes][:bookstore_id]
+            impression_id: params[:likes][:impression_id]
         )
         if @like.save
             redirect_to "/show/#{params[:likes][:bookstore_id]}"
@@ -20,7 +20,8 @@ class LikesController < ApplicationController
     def destroy
         @like = Like.find_by(
             user_id: @current_user.id, 
-            # bookstore_id: params[:likes][:bookstore_id]
+            # したは消してある。createで作っているから消せると思ったけれども。
+            # impression_id: params[:likes][:impression_id]
         )
         @like.destroy
         redirect_to "/show/#{params[:bookstore_id]}"

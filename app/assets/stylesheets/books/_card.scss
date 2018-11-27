@@ -1,7 +1,6 @@
 // @import "layouts/common.scss";
 
 .card-poket {
-    background-color: white;
     padding: 10px 40px 10px 0px;
 }
 
@@ -20,6 +19,7 @@
     margin: 10px;
     // border-radius: 5%;  角に丸みをつけるプロパティ
     font-weight: bold;
+    background-color: white;
 }
 
 .card-img {
@@ -31,22 +31,28 @@
 }
 
 .card-right {
-    display: flex;
+    background-color: white;
     .title {
         color: red;
         padding: 15px;
         margin: 15px;
+        font-size: 25px;
     }
     .author {
         color: blue;
         padding: 15px;
         margin: 15px;
+        font-size: 25px;
+    }
+    p {
+        font-size: 30px;
     }
 }
 
 .card-text {
     p {
         text-align: center;
+        font-size: 25px;
     }
 
     .story {

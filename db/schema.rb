@@ -37,9 +37,6 @@ ActiveRecord::Schema.define(version: 2018_11_12_071710) do
     t.integer "bookstore_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bookstore_id"], name: "index_impressions_on_bookstore_id"
-    t.index ["user_id", "bookstore_id"], name: "user_bookstore_id", unique: true
-    t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

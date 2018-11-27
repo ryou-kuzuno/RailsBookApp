@@ -8,11 +8,12 @@ class BooksController < ApplicationController
 
     #本の詳細画面でのアクション
     def show
-        @impressions = Impression.find(params[:bookstore_id])
+        @book = Bookstore.find(params[:bookstore_id])
         #　ひと目でわかりやすい記述
+        @impressions = @book.impressions
         @likes_count = Like.where(
             user_id: params[:user_id],
-            bookstore_id: params[:bookstore_id]
+            impression_id: params[:impression_id]
             ).count
         # raise @like_count.inspect
         @new_comment = Comment.new
@@ -31,6 +32,9 @@ class BooksController < ApplicationController
 
     #感想の編集画面のアクション
     def edit
+        # こちらでbookstore_idに対応する@impressionが無いことがエラーの原因
+        # id で検索をかけると、impression_idでの検索となってしまう。	
+        # bookstore_idでの検索なので、idをbookstore_idに変更
         @impression = Impression.find_by(bookstore_id: params[:bookstore_id])
     end
 
@@ -80,6 +84,7 @@ class BooksController < ApplicationController
 
     #投稿に対するコメントを作成するアクション
   def reply
+    @book = Bookstore.find(params[:id])
     # @imp = Impression.find(params[:id])
     comment_params = params["comment"].permit(:bookstore_id,:comment, :user_id)
     # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする。
