@@ -28,9 +28,9 @@ Rails.application.routes.draw do
   
   patch   "books/:bookstore_id/update" => "books#update"#変更を反映
   get    "new"           => "books#new"#新規登録画面
-  get    ":bookstore_id/edit"    => "books#edit"#編集画面
+  get    ":bookstore_id/edit"    => "books#edit"#編集画面 # /:bookstore_id/:impression_id/edit
   
-  get    "show/:bookstore_id"    => "books#show"#詳細画面
+  get    "show/:bookstore_id"    => "books#show"#詳細画面 #show/:bookstore_id/:impression_id
   get    "index"         => "books#index"
 
 
