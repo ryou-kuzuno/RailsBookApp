@@ -1,13 +1,16 @@
+<%# 新規と、既存のbookstoreデータを使いたい場合で分ける。同じページでやりたい %>
+
+
 <%= form_for @book, url: { controller: :books, action: :create} do |book| %>
   <div class="card">
       <div class="card-right">
         <div class="title">
           <%= book.label :作者名 %>
-          <%= book.text_field :title %>
+          <%= book.text_field :author %>
         </div>
         <div class="author">
           <%= book.label :タイトル %>
-          <%= book.text_field :author %>
+          <%= book.text_field :title %>
         </div>
       </div>
       <%# fields_for　は複数モデルを使うときに使う %>

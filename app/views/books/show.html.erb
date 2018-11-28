@@ -30,17 +30,17 @@
                   <%= impressions.likes.count %>
                 <% end %>
               <% else %>
-                <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>     
-                <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
-                    <% # テキストからのボタンを作り、上からスタイルを当てる%>
-                      <% # テキストからのボタンを作り、上からスタイルを当てる%>
-                      <%= form.hidden_field :user_id, :value => @current_user.id %>
-                      <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
-                      <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
-                      <%= impressions.likes.count %>
-                      <%= form.hidden_field :user_id, :value => @current_user.id %>
-                      <%= form.hidden_field :impression_id, :value => impressions.id %>
-                      <%= form.hidden_field :bookstore_id, :value => impressions.id %>
+                <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>
+                  <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
+                  <% # テキストからのボタンを作り、上からスタイルを当てる%>
+                  <% # テキストからのボタンを作り、上からスタイルを当てる%>
+                  <%= form.hidden_field :user_id, :value => @current_user.id %>
+                  <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
+                  <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
+                  <%= impressions.likes.count %>
+                  <%= form.hidden_field :user_id, :value => @current_user.id %>
+                  <%= form.hidden_field :impression_id, :value => impressions.id %>
+                  <%= form.hidden_field :bookstore_id, :value => impressions.id %>
                 <% end %>
               <% end %>
           </div>
@@ -55,6 +55,12 @@
       </div>
       <% end %>
 </div>
+
+<% # イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
+<%= render partial: 'books/cards/comments', locals: { comments: @comments, new_comment: @new_comment, bookstore_id: @book.id } %>
+
+
+
 
 <%
 # 通常javascriptの処理は、.jsファイルに記述する。
@@ -77,5 +83,3 @@ function fireLikeSubmit(id) {
   document.forms[id].submit();
 }
 </script>
-<%# イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
-<%= render partial: 'books/cards/comments' , locals: { comments: @comments, new_comment: @new_comment , bookstore_id: @impressions} %>

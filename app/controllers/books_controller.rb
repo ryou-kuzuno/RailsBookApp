@@ -9,17 +9,52 @@ class BooksController < ApplicationController
     #本の詳細画面でのアクション
     def show
         @book = Bookstore.find(params[:bookstore_id])
+
         #　ひと目でわかりやすい記述
+        # @bookというインスタンスに紐づく感想の一覧にアクセスして、@impressionsに代入しているだけ
+        # @book と @imporessionsは別物
+
+        # raise params[:user_id].inspect
+        # raise params[:impression_id].inspect
+
+        # 本 ♡5
+        #  + 感想1 ♡2
+        #      + like1（user = くずの）
+        #      + like2（user = たなか）
+        #  + 感想2 ♡3
+        #      + like3（user = くずの）
+        #      + like4
+        #      + like5
         @impressions = @book.impressions
         @likes_count = Like.where(
-            user_id: params[:user_id],
-            impression_id: params[:impression_id]
+            # user_id: @current_user.id,
+            bookstore_id: params[:bookstore_id]
             ).count
+
+        # likeできるかどうかの判定
+        @can_like = false
+        @impressions.each do |impression|
+            can_like = Like.find_by(
+                user_id: @current_user.id,
+                impression_id: impression.id
+            )
+            
+            if can_like == 0
+                @can_like = true # ある感想に紐づくLikeがなければ、Likeを追加できる
+                break
+            end
+        end
+
+        @can_like = 
+
         # raise @like_count.inspect
         @new_comment = Comment.new
+
+        # Comment.where ◯◯という条件でcommentsテーブルを検索する
+        # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い
         @comments = Comment.where(
-            comment: params[:comment],
-            user_id: params[:nicenane],
+            # comments: params[:comments],
+            # user_id: params[:user_id],
             bookstore_id: params[:bookstore_id]
             )
     end
@@ -43,7 +78,8 @@ class BooksController < ApplicationController
         # book_idを確定させるために先に@book.saveをしておく必要がある。
         # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
         @book = Bookstore.new(title: params["bookstore"]["title"],
-                              author: params["bookstore"]["author"]
+                              author: params["bookstore"]["author"],
+                              user_id: @current_user.id
         )
          # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
         # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
@@ -83,18 +119,19 @@ class BooksController < ApplicationController
     end
 
     #投稿に対するコメントを作成するアクション
-  def reply
-    @book = Bookstore.find(params[:id])
-    # @imp = Impression.find(params[:id])
-    comment_params = params["comment"].permit(:bookstore_id,:comment, :user_id)
-    # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする。
-    # raise comment_params.inspect
-    @new_comment = Comment.new(comment_params)
-    if @new_comment.save
-      redirect_to controller: 'books', action: 'show'
-      # @new_comment.save!
+    def reply
+        # @book = Bookstore.find(params[:id])
+        comment_params = params["comment"].permit(:bookstore_id, :comments, :user_id)
+
+        # raise comment_params.inspect
+        # commentsテーブルを取得してpermitでその中で使うカラムを検証を通るようにする。
+        # raise comment_params.inspect
+        @new_comment = Comment.new(comment_params)
+        if @new_comment.save
+          redirect_to controller: 'books', action: 'show'
+          # @new_comment.save!
+        end
     end
-  end
 
 
     #投稿内容を削除するためのアクション
