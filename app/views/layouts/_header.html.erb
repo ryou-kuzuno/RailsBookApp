@@ -10,17 +10,16 @@
         <%# books#index %>
         <li><%= link_to "お気に入り・コメント" ,"/users/#{@current_user.id}/likes" %></li>
         <%# users#likes %>
-        <li><%= link_to "ユーザーホーム", "/users/#{@current_user.id}"%></li>
+        <li><%= link_to "#{@current_user.nicename}のまいページ", "/users/#{@current_user.id}"%></li>
         <%# users#show %>
         <li class="search">
-          <a href="search" >本のタイトルを検索する</a>
           <%# 検索ボタン%>
           <%# <input type="search" class="search-box"> %>
           <%# 検索する文字の入力画面%>
           <%= form_with(url: "/search") do |form| %>              　
           <%# books#search %>
           <%= form.text_field :search %>
-          <%= form.submit 'Search', :name => nil %>
+          <%= form.submit '本のタイトルを検索する', :name => nil %>
           <% end%>
         </li>
       </ul>
@@ -31,6 +30,7 @@
             <div class="hidden_show">
               <!--ここに隠す中身-->
                 <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
+                <p>ログアウト</p>
                 <%# users#edit %>
             </div>
           </div>
@@ -45,11 +45,9 @@
         <%# users#new %>
         <li  class="search">
         <%# 本のタイトルのみで検索できます。探しても見つからないなら、ココにはない。 %>
-          <a href="search">本のタイトルを検索する</a>
-          <%# <input type="search" class="search-box"> %>
           <%= form_with(url: "/search") do |form| %>
           <%= form.text_field :search %>
-          <%= form.submit 'Search', :name => nil %>
+          <%= form.submit '本のタイトルを検索する', :name => nil %>
           <% end%>
         </li>
       </ul>

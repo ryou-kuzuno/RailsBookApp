@@ -1,40 +1,60 @@
 <%# 新規と、既存のbookstoreデータを使いたい場合で分ける。同じページでやりたいが、フォームを分けることは、コントローラーで紐づいているため
 　　できないので、if で分けるが、 %>
+<%# <% if book = Bookstore.find(params[:id])%>
+  <%# <%= form_for @impression, url: { controller: :books, action: :create} do |imp| %>
+  <%# <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
+    <div class="card-text">
+        <div class="story">
+          <%# <%= imp.label :あらすじ %>
+          <%# <%= imp.text_area :story %>
+        </div>          
+        <div class="impressions">
+          <%# <%= imp.label :感想 %>
+          <%# <%= imp.text_area :impressions %>
+        </div>
+    </div>
+    <div class="card-under">
+      <%# <%= book.submit '投稿', :onclick => "submit();"%>
+      <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
+      <%# <button type="button" onclick="submit();">送信</button> %>
+    </div>
+  <%# <% end%>
 
 
 <%= form_for @book, url: { controller: :books, action: :create} do |book| %>
-  <div class="card">
-      <div class="card-right">
-        <div class="author">
-          <%= book.label :作者名 %>
-          <%= book.text_field :author %>
-        </div>
-
-        <div class="title">
-          <%= book.label :タイトル %>
-          <%= book.text_field :title %>
-        </div>
-      </div>
-      <%# fields_for　は複数モデルを使うときに使う %>
-      <%# @impressions というインスタンスを用意する必要なく、@bookと関連付けられているという仕組みを使って、空のimpressionsを作る %>
-      <%=  book.fields_for @book.impressions.build do |imp|%>
-        <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
-        <div class="card-text">
-          <div class="story">
-            <%= imp.label :あらすじ %>
-            <%= imp.text_area :story %>
+    <div class="card">
+        <div class="card-right">
+          <div class="author">
+            <%= book.label :作者名 %>
+            <%= book.text_field :author %>
           </div>
-          <div class="impressions">
-            <%= imp.label :感想 %>
-            <%= imp.text_area :impressions %>
+
+          <div class="title">
+            <%= book.label :タイトル %>
+            <%= book.text_field :title %>
           </div>
         </div>
-      <div class="card-under">
-        <%# <%= book.submit '投稿', :onclick => "submit();"%>
-        <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
-        <button type="button" onclick="submit();">送信</button>
+        <%# fields_for　は複数モデルを使うときに使う %>
+        <%# @impressions というインスタンスを用意する必要なく、@bookと関連付けられているという仕組みを使って、空のimpressionsを作る %>
+        <%=  book.fields_for @book.impressions.build do |imp|%>
+          <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
+          <div class="card-text">
+            <div class="story">
+              <%= imp.label :あらすじ %>
+              <%= imp.text_area :story %>
+            </div>
+            <div class="impressions">
+              <%= imp.label :感想 %>
+              <%= imp.text_area :impressions %>
+            </div>
+          </div>
+        <div class="card-under">
+          <%# <%= book.submit '投稿', :onclick => "submit();"%>
+          <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
+          <button type="button" onclick="submit();">送信</button>
 
-      </div>
-      <% end%>
-   </div>
+        </div>
+        
+    </div>
+    <% end%>
 <% end%> 

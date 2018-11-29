@@ -19,7 +19,8 @@
 
           <div class="card-under"> 
             <div>
-              <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%><%# <% if my_like find_byで取る値が間違っていた。この部分で欲しかったのはimp_id と　user_idだから、イーチの変数と現在のユーザーアイディを渡す
+              <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
+              <%# <% if my_like find_byで取る値が間違っていた。この部分で欲しかったのはimp_id と　user_idだから、イーチの変数と現在のユーザーアイディを渡す
               params[:impressions][:bookstore_id] では取れない%>
               <%  #メモ
                   # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない

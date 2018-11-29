@@ -61,8 +61,12 @@ class BooksController < ApplicationController
 
     #新しく感想を投稿する画面のアクション
     def new
-        @book = Bookstore.new
-        @impression = Impression.new
+        # 既にあるbookstoreの情報を下地にimpressionを作りたいので、欲しいbookstoreを取得する。
+        # if @book = Bookstore.find(params[:bookstore_id])
+        #     @book = Bookstore.find(params[:bookstore_id])
+        # else 
+            @book = Bookstore.new
+            @impression = Impression.new
     end
 
     #感想の編集画面のアクション
@@ -75,22 +79,26 @@ class BooksController < ApplicationController
 
     #新しい投稿を作成するアクション
     def create
-        # book_idを確定させるために先に@book.saveをしておく必要がある。
-        # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
-        @book = Bookstore.new(title: params["bookstore"]["title"],
-                              author: params["bookstore"]["author"],
-                              user_id: @current_user.id
-        )
-         # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
-        # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
+        if @book = Bookstore.find(params[:bookstore_id])
+            
+        else
+            # book_idを確定させるために先に@book.saveをしておく必要がある。
+            # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
+            @book = Bookstore.new(title: params["bookstore"]["title"],
+                                author: params["bookstore"]["author"],
+                                user_id: @current_user.id
+            )
+            # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
+            # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
+        end
+            impression = @book.impressions.build(
+                story: params["bookstore"]["impression"]["story"],
+                impressions: params["bookstore"]["impression"]["impressions"],
+                user_id: params["bookstore"]["impression"]["user_id"],
+                bookstore_id: @book.id
+            )
         
-        impression = @book.impressions.build(
-            story: params["bookstore"]["impression"]["story"],
-            impressions: params["bookstore"]["impression"]["impressions"],
-            user_id: params["bookstore"]["impression"]["user_id"],
-            bookstore_id: @book.id
-        )
-        # raise  impression.inspect 
+            # raise  impression.inspect 
         # raise @impression.inspect
         # if @book.save
         if @book.save

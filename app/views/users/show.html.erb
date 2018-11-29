@@ -3,14 +3,14 @@
   <%# user.mailと編集リンクを表示 %>
   <% if @user.id == @current_user.id %>
     <p><%= @user.mail %></p>
-    <p><%= link_to("編集", "/users/#{@user.id}/edit") %></p>
+    <p><%= link_to("編集しますか？", "/users/#{@user.id}/edit") %></p>
   <% end %>
 </div>
 
 <div class="switch">
   <ul>
-    <li class="active"><%= link_to "投稿", "/users/#{@user.id}" %></li>
-    <li><%= link_to "お気に入り", "/users/#{@user.id}/likes" %></li>
+    <li class="active"><%= link_to "自分が書いた感想", "/users/#{@user.id}" %></li>
+    <li><%= link_to "押した♡", "/users/#{@user.id}/likes" %></li>
   </ul>
 </div>
 <%# 投稿があるなら表示 %>
