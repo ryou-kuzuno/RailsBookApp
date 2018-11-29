@@ -1,6 +1,8 @@
 <p>読まれた本</p>
-<%= @books.each do |book| %>  
-  <%= book.title%>
+<% @books.each do |book| %>  
+  <div>
+    <%= book.title%>
+  </div>
 <% end%>
 
   <%= render partial: 'books/cards/cards' %>

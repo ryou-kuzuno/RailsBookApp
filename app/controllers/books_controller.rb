@@ -148,23 +148,4 @@ class BooksController < ApplicationController
         redirect_to "/index"
     end
 
-    def search
-        @books = Bookstore.where(activated: true).paginate(page: params[:page]).search(params[:search])
-        if @books
-            redirect_to "/search/#{@books.id}"
-        end
-        # @books = bookstore.all
-        # #ViewのFormで取得したパラメータをモデルに渡す
-        # @books = bookstore.search(params[:search])
-    end
-
-    def search_page
-        #ViewのFormで取得したパラメータをモデルに渡す
-        @books = Bookstore.search(params[:search])
-    end
-
-    private
-    def bookstore_params
-        params.require(:bookstore).permit(:title, :author)
-    end
 end
