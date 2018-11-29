@@ -38,7 +38,6 @@ class BooksController < ApplicationController
                 user_id: @current_user.id,
                 impression_id: impression.id
             )
-            
             if can_like == 0
                 @can_like = true # ある感想に紐づくLikeがなければ、Likeを追加できる
                 break
@@ -79,9 +78,8 @@ class BooksController < ApplicationController
 
     #新しい投稿を作成するアクション
     def create
-        if @book = Bookstore.find(params[:bookstore_id])
-            
-        else
+        # if @book = Bookstore.find(params[:bookstore_id])
+        # else
             # book_idを確定させるために先に@book.saveをしておく必要がある。
             # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
             @book = Bookstore.new(title: params["bookstore"]["title"],
@@ -90,14 +88,12 @@ class BooksController < ApplicationController
             )
             # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
             # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
-        end
             impression = @book.impressions.build(
                 story: params["bookstore"]["impression"]["story"],
                 impressions: params["bookstore"]["impression"]["impressions"],
                 user_id: params["bookstore"]["impression"]["user_id"],
                 bookstore_id: @book.id
             )
-        
             # raise  impression.inspect 
         # raise @impression.inspect
         # if @book.save
@@ -153,7 +149,22 @@ class BooksController < ApplicationController
     end
 
     def search
+        @books = Bookstore.where(activated: true).paginate(page: params[:page]).search(params[:search])
+        if @books
+            redirect_to "/search/#{@books.id}"
+        end
+        # @books = bookstore.all
+        # #ViewのFormで取得したパラメータをモデルに渡す
+        # @books = bookstore.search(params[:search])
+    end
+
+    def search_page
         #ViewのFormで取得したパラメータをモデルに渡す
-        @books = bookstore.search(params[:search])
+        @books = Bookstore.search(params[:search])
+    end
+
+    private
+    def bookstore_params
+        params.require(:bookstore).permit(:title, :author)
     end
 end

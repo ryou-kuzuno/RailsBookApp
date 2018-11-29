@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post   "likes/create"  => "likes#create"
   post   "likes/:bookstore_id/destroy" => "likes#destroy"
   
+  get    "search/:bookstore_id"  =>  "books#search_page" # 検索結果を表示するページ
   get    "search"  =>  "books#search" #検索結果を出力
 
   patch  "user/:id/update" => "users#update"#ユーザーの変更を反映
