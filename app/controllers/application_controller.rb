@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
     end
 
     def search
-        @books = Bookstore.find_by(activated: true).search(params[:search])
-        if @books
+        @books = Bookstore.search(params[:search])
+        if @books.save
             redirect_to "/search/#{@books.id}"
         end
         # @books = bookstore.all
