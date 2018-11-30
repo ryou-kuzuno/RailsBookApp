@@ -24,11 +24,11 @@ class UsersController < ApplicationController
         password: params["user"]["password"]
       )
       if @user.save
-        session[:user_id] = @user.id
-        flash[:notice] = "ユーザー登録が完了しました"
-        redirect_to "/index"
+          session[:user_id] = @user.id
+          flash[:notice] = "ユーザー登録が完了しました"
+          redirect_to "/index"
       else
-        render "signup"
+          render("signup")
       end
     end
 
@@ -66,9 +66,6 @@ class UsersController < ApplicationController
         redirect_to "/index"
       else
         @error_message = "メールアドレスまたはパスワードが間違っています"
-        # @mail = params["user"]["mail"]
-        # @password = params["user"]["password"]
-
         # @user = という処理がないので、html側で@userがnilになってしまっている
         @user = User.new
         @user.mail = params["user"]["mail"]
@@ -81,7 +78,7 @@ class UsersController < ApplicationController
     def logout
       session[:user_id] = nil
       flash[:notice] = "ログアウトしました"
-      redirect_to "/login"
+      redirect_to "/index"
     end
 
     def likes

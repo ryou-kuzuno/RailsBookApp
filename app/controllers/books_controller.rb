@@ -9,7 +9,7 @@ class BooksController < ApplicationController
     #本の詳細画面でのアクション
     def show
         @book = Bookstore.find(params[:bookstore_id])
-
+        @user = User.find_by(id: @book.user_id)
         #　ひと目でわかりやすい記述
         # @bookというインスタンスに紐づく感想の一覧にアクセスして、@impressionsに代入しているだけ
         # @book と @imporessionsは別物
@@ -91,7 +91,7 @@ class BooksController < ApplicationController
             impression = @book.impressions.build(
                 story: params["bookstore"]["impression"]["story"],
                 impressions: params["bookstore"]["impression"]["impressions"],
-                user_id: params["bookstore"]["impression"]["user_id"],
+                user_id: @current_user.id,
                 bookstore_id: @book.id
             )
             # raise  impression.inspect 

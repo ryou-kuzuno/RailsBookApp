@@ -5,6 +5,13 @@ class ApplicationController < ActionController::Base
         @current_user = User.find_by(id: session[:user_id])
     end
 
+    def ensure_correct_user
+        if @current_user.id != params[:id].to_i
+        flash[:notice] = "権限がありません"
+        redirect_to("/index")
+       end
+    end
+
     def _footer
         @user = User.find_by(id: params[:id])
     end

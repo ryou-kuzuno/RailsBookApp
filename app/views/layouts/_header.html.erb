@@ -26,9 +26,9 @@
             <input type="checkbox" id="label1"/>
             <div class="hidden_show">
               <!--ここに隠す中身-->
-                <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
-                <p>ログアウト</p>
                 <%# users#edit %>
+                <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
+                <%= link_to "ログアウトしますか？", "/logout"%>
             </div>
           </div>
     <%# user非ログイン時 %>
