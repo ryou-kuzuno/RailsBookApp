@@ -6,9 +6,7 @@ class Bookstore < ApplicationRecord
     #optional: trueはnilを許容するバリデーション
     has_many :impressions
 
-#  if search
-#         Post.where(['content LIKE ?', "%#{search}%"])
-#     end
+
     # scope :search_by_title, ->(title) {
     #     where("title like '%#{title}%'")
     # }

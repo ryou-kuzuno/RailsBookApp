@@ -16,16 +16,6 @@ class ApplicationController < ActionController::Base
         @user = User.find_by(id: params[:id])
     end
 
-    def search
-        @books = Bookstore.search(params[:search])
-        if @books.save
-            redirect_to "/search/#{@books.id}"
-        end
-        # @books = bookstore.all
-        # #ViewのFormで取得したパラメータをモデルに渡す
-        # @books = bookstore.search(params[:search])
-    end
-
     def search_page
         #ViewのFormで取得したパラメータをモデルに渡す
         @books = Bookstore.search(params[:search])

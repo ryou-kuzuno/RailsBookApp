@@ -9,5 +9,5 @@ class ApplicationRecord < ActiveRecord::Base
     else
       all #全て表示。User.は省略
     end
-  end
+end
 end
