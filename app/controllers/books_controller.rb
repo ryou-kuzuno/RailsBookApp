@@ -150,18 +150,21 @@ class BooksController < ApplicationController
 
 
     def search
-        @books = Bookstore.search(params[:search])
+        @books = Bookstore.search(params[:search_key])
         if @books
-            redirect_to "/search/#{params[:search]}"
+            redirect_to "/search/#{params[:search_key]}"
         else
             @books = Bookstore.all
-            redirect_to "/search/#{params[:search]}"
+            redirect_to "/search/#{params[:search_key]}"
         end
     end
 
     def search_page
-        if  params[:search]
-            @books = Bookstore.where(['search LIKE ?', "%#{search}%"])
+        if  params[:search_key]
+            # @books = Bookstore.where(['search LIKE ?', "%#{search_key}%"])
+            @books = Bookstore.search(params[:search])
+        else
+            @books = Bookstore.all
         end
     
     end
