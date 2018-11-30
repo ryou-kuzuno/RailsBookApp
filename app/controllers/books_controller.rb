@@ -148,17 +148,15 @@ class BooksController < ApplicationController
         redirect_to "/index"
     end
 
-    def search_page
-        if  params[:search]
-            @books = Bookstore.where(['search LIKE ?', "%#{search}%"])
-    
-        end
-    end
 
     def search
         @books = Bookstore.search(params[:search])
         if @books
             redirect_to "/search/#{params[:search]}"
+        end
+
+        if  params[:search]
+            @books = Bookstore.where(['search LIKE ?', "%#{search}%"])
         end
         # @books = bookstore.all
         # #ViewのFormで取得したパラメータをモデルに渡す
