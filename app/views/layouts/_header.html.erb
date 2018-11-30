@@ -13,6 +13,8 @@
         <li><%= link_to "#{@current_user.nicename}のまいページ", "/users/#{@current_user.id}"%></li>
         <%# users#show %>
         <li class="search">
+        <%# url: "/search"で検索フォームに書かれたテキストを/search/#{params[:search]}にリダイレクトさせている。
+        # この時、saveをしたいが@booksには何も入っていない。params[:search]にはフォームのテキストが入っている。 %>
           <%= form_with(url: "/search", method: :get ,local: true) do |form| %>              　
           <%# books#search %>
             <%= form.text_field :search %>

@@ -153,10 +153,9 @@ class BooksController < ApplicationController
         @books = Bookstore.search(params[:search])
         if @book
             redirect_to "/search/#{params[:search]}"
+        else
+            @books = Bookstore.all
         end
-        # @books = bookstore.all
-        # #ViewのFormで取得したパラメータをモデルに渡す
-        # @books = bookstore.search(params[:search])
     end
 
     def search_page
