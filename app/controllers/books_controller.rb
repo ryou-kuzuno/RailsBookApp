@@ -151,10 +151,11 @@ class BooksController < ApplicationController
 
     def search
         @books = Bookstore.search(params[:search])
-        if @book
+        if @books
             redirect_to "/search/#{params[:search]}"
         else
             @books = Bookstore.all
+            redirect_to "/search/#{params[:search]}"
         end
     end
 
