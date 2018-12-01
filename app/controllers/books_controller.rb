@@ -149,14 +149,17 @@ class BooksController < ApplicationController
     end
 
     def search_page
-        if  params[:search_key]
-            @books = Bookstore.where(title: params[:search_key])
-            # @books = Bookstore.where(['search LIKE ?', "%#{search_key}%"])
-            # @books = Bookstore.where(activated: true).paginate(page: params[:page]).search(params[:search])
-        else
-            @books = Bookstore.all
+        search_key_word = params[:search_key]
+        @books = Bookstore.where("title LIKE ?", "%#{search_key_word}%")
+
+        if @books.empty?
+            @message = "キーワードに該当するページが見つかりません"
+            redirect_to :action => "not_found"
         end
-    
     end
+
+    def not_found
+    end
+    
 
 end
