@@ -12,11 +12,6 @@ class BooksController < ApplicationController
         @user = User.find_by(id: @book.user_id)
         #　ひと目でわかりやすい記述
         # @bookというインスタンスに紐づく感想の一覧にアクセスして、@impressionsに代入しているだけ
-        # @book と @imporessionsは別物
-
-        # raise params[:user_id].inspect
-        # raise params[:impression_id].inspect
-
         # 本 ♡5
         #  + 感想1 ♡2
         #      + like1（user = くずの）
@@ -30,7 +25,6 @@ class BooksController < ApplicationController
             # user_id: @current_user.id,
             bookstore_id: params[:bookstore_id]
             ).count
-
         # likeできるかどうかの判定
         @can_like = false
         @impressions.each do |impression|
@@ -43,12 +37,7 @@ class BooksController < ApplicationController
                 break
             end
         end
-
-        @can_like = 
-
-        # raise @like_count.inspect
         @new_comment = Comment.new
-
         # Comment.where ◯◯という条件でcommentsテーブルを検索する
         # Commentに関しては、誰が書いたか、というよりはどの本のコメントなのかさえわかれば良い
         @comments = Comment.where(
@@ -64,8 +53,8 @@ class BooksController < ApplicationController
         # if @book = Bookstore.find(params[:bookstore_id])
         #     @book = Bookstore.find(params[:bookstore_id])
         # else 
-            @book = Bookstore.new
-            @impression = Impression.new
+        @book = Bookstore.new
+        @impression = Impression.new
     end
 
     #感想の編集画面のアクション
@@ -161,8 +150,9 @@ class BooksController < ApplicationController
 
     def search_page
         if  params[:search_key]
+            @books = Bookstore.where(title: params[:search_key])
             # @books = Bookstore.where(['search LIKE ?', "%#{search_key}%"])
-            @books = Bookstore.search(params[:search])
+            # @books = Bookstore.where(activated: true).paginate(page: params[:page]).search(params[:search])
         else
             @books = Bookstore.all
         end

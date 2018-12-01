@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post   "likes/create"  => "likes#create"
   post   "likes/:bookstore_id/destroy" => "likes#destroy"
 
-  get    "search"  =>  "books#search" #検索結果bookstoreから探して、見つけることができたら、贈る。
+  post   "search"  =>  "books#search" #検索結果bookstoreから探して、見つけることができたら、贈る。
   get    "search/:title"  =>  "books#search_page" #検索結果を表示する画面。
 
   patch  "user/:id/update" => "users#update"#ユーザーの変更を反映
