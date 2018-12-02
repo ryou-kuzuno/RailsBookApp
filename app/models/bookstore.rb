@@ -1,6 +1,9 @@
 class Bookstore < ApplicationRecord
+    attr_accessor :thumbnailobject
+
     validates :author, presence: true #author, title の空投稿を防いでいる
     validates :title, {presence: true, length: {maximum: 255}}
+    validates :thumbnail, presence: true
 
     belongs_to :users  , optional: true
     #optional: trueはnilを許容するバリデーション

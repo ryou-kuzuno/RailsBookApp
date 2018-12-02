@@ -1,6 +1,8 @@
 <%# 本の詳細表示 %>
 <div class="card-show">
-      <div class="card-img">画像</div>
+      <div class="card-img">
+        <img src="<%= @book.thumbnail%>" >
+      </div>
       <div class="card-right">
         <p>作者</p>
         <%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>

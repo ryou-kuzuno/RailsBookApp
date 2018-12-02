@@ -23,18 +23,18 @@
 
 <%= form_for @book, url: { controller: :books, action: :create} do |book| %>
     <div class="card">
-        <div class="image">
-          <input name="thumbnail" type="file" >
+        <div class="card-image">
+          <%= book.label :好きな画像を選んでね %><br>
+          <%= book.file_field :thumbnailobject %>
         </div>
         <div class="card-right">
           <div class="author">
             <%= book.label :作者名 %>
             <%= book.text_field :author %>
         </div>
-
           <div class="title">
-            <%= book.label :タイトル %>
-            <%= book.text_field :title %>
+              <%= book.label :タイトル %>
+              <%= book.text_field :title %>
           </div>
         </div>
         <%# fields_for　は複数モデルを使うときに使う %>
