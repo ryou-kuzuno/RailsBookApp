@@ -1,8 +1,12 @@
 <p>最近読まれた本</p>
-<% @books.each do |book| %>  
+
+<% @test.each_with_index do |book , index|%>
   <div>
     <%= book.title%>
   </div>
+  <%# if index == 3 %>
+    <%# break; %>
+  <%# end%>
 <% end%>
 
   <%= render partial: 'books/cards/cards' %>

@@ -3,6 +3,7 @@ class BooksController < ApplicationController
     #感想一覧を表示するアクション
     def index
         @books =Bookstore.all
+        @test = Bookstore.all.last(2)
         @impressions = Impression.all
     end
 
@@ -73,8 +74,12 @@ class BooksController < ApplicationController
             # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
             @book = Bookstore.new(title: params["bookstore"]["title"],
                                 author: params["bookstore"]["author"],
+                                image: params["bookstore"]["thumbnail"],
                                 user_id: @current_user.id
             )
+            image = params[:image]
+            File.binwrite("public/book_images/#{@book.image_name}", image.read)
+
             # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
             # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
             impression = @book.impressions.build(

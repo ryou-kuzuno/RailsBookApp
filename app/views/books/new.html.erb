@@ -23,11 +23,14 @@
 
 <%= form_for @book, url: { controller: :books, action: :create} do |book| %>
     <div class="card">
+        <div class="image">
+          <input name="thumbnail" type="file" >
+        </div>
         <div class="card-right">
           <div class="author">
             <%= book.label :作者名 %>
             <%= book.text_field :author %>
-          </div>
+        </div>
 
           <div class="title">
             <%= book.label :タイトル %>
