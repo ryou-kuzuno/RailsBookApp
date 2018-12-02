@@ -157,10 +157,20 @@ class BooksController < ApplicationController
         search_key_word = params[:search_key]
         @books = Bookstore.where("title LIKE ?", "%#{search_key_word}%")
         if  @books.empty?
-            @message = "キーワードに該当するページが見つかりません"
-            redirect_to :action => "not_found"
+            @book_not_found_message = "キーワードに該当するページが見つかりません"
+            render "search_page"
+            # redirect_to :action => "not_found"
         end
     
+    end
+
+    def content
+        # @todo requestのパラメータを受け取るようにする
+        # title = 'ポラーノ広場'
+        # book = Bookstore.whre(title: title)
+        # book.contentを、returnしてあげる
+        book = {title: 'ポラーノの広場', content: 'aaaaaaaaa'}
+        render :json => book
     end
 
     def not_found

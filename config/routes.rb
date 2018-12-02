@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   post   "likes/create"  => "likes#create"
   post   "likes/:bookstore_id/destroy" => "likes#destroy"
 
-  post   "search"  =>  "books#search" #検索結果bookstoreから探して、見つけることができたら、贈る。
-  get    "search/:title"  =>  "books#search_page" #検索結果を表示する画面。
+  # こちらの2つは不要
+  # post   "search"  =>  "books#search" #検索結果bookstoreから探して、見つけることができたら、贈る。
+  # get    "search/:title"  =>  "books#search_page" #検索結果を表示する画面。
+
   get    "search/"  =>  "books#search_page" #検索結果を表示する画面。
   get    "not_found" => 'books#not_found'
 
@@ -28,7 +30,8 @@ Rails.application.routes.draw do
   # railsの規約に合わせると model + actionの形にroutingもしておくのがベター
   get    "books/new"           => "books#new"#新規登録画面
   post   "books/create"        => "books#create"#本を作るアクション
-  
+  get    "books/content" => "books#content"
+
   patch   "books/:bookstore_id/update" => "books#update"#変更を反映
   get    "new"           => "books#new"#新規登録画面
   get    ":bookstore_id/edit"    => "books#edit"#編集画面 # /:bookstore_id/:impression_id/edit
