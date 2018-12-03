@@ -24,8 +24,9 @@
 <%= form_for @book, url: { controller: :books, action: :create} do |book| %>
     <div class="card">
         <div class="card-image">
+
           <%= book.label :好きな画像を選んでね %><br>
-          <%= book.file_field :thumbnailobject %>
+          <%= book.file_field :thumbnail %>
         </div>
         <div class="card-right">
           <div class="author">

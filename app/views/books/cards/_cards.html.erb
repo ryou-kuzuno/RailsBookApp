@@ -3,15 +3,15 @@
   <div class="card-poket">
     <div class="card">
         <%# 備忘録。画像も表示させたいという忘れないように。%>
-        <div class="image">
-          <%= book.thumbnail %>
+        <div class="card-image">
+          <img src="<%= "/public/books_images/#{book.thumbnail}" %>">
         </div>
           
         <div class="card-right">
           <div class="title">
           <p>タイトル</p>
           <%# 変数bookのtitleメソッドを取り出す%>
-            <h1><%= book.title %></h1>
+            <h1 class="book-title"><%= book.title %></h1>
           </div>
           <div class="author">
             <p>作者</p>
@@ -39,3 +39,52 @@
   </div>
 <% end %>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ <script>
+ // $ は jQueryの意味
+// jQueryを使うために、jQueryの読み込みを行う必要がある
+$(function() {
+  // .card-rightクラスの子要素 の .titleクラスがクリックされたときに、◯◯する、という処理
+  $('.card-right .title').on('click', function() {
+     // javascriptを使って要素を動的に変更する
+     // 色を変えてみる
+    // this ... 今クリックされた要素のこと
+    console.log(this);
+    this.style.color = 'black';
+     // 参考
+    // https://qiita.com/nekoneko-wanwan/items/227ccad5f8cc449e91e9
+    // appendを使ってthisに要素を動的に追加することができる（追加の反対で、減らすこともできる）
+    // this.append("<p>シロツメグサの花『ポラーノの広場』（ポラーノのひろば）は、宮沢賢治の短編小説（童話）。賢治が亡くなった翌年の1934年（昭和9年）に発表された作品である。　賢治が自筆メモで「少年小説」や「長編」としてタイトルを挙げていた4つの作品（他の3つは「銀河鉄道の夜」「風の又三郎」「グスコーブドリの伝記」）の1つである。</p>");
+     // this.append("<p>博物局で働くキューストと農夫の子ファゼーロ少年たちが伝説のポラーノの広場を追い求め、ついに自ら理想の広場を実現するまでを描いた作品である。本作はキューストが執筆したという体裁が取られており、タイトルの後に「前十七等官　レオーノ・キュースト誌　宮沢賢治訳述」と記されている[1]。</p>");
+     // 今は、このテキストは固定文字列
+    // この文字列を、通信をして取得できるようにする
+    var title = "ポラーノの広場";
+     // 同期処理の場合、getContentという仮の関数を呼び出すと、他の処理がすべて止まってしまう
+    // 例：例えばHTMLを描画していると、HTMLの描画がとまってしまう。
+    // var content = getContent("ポラーノ広場"); // 例：wikipediaに問い合わせる
+    // this.append(content);
+     // ajaxは上のような問題を解消するための手段
+    // 通信が非同期なので、他のHTMLの描画などを止めない
+    $.ajax({
+      url: '/books/content', // 例：localhost:3000/books/content
+      type: 'GET',
+      dataType: 'json', // htmlで取得することもできる
+      data: {
+        'title': title,
+      }
+    }).done((data) => {
+      // Ajaxリクエストが成功した時発動
+      // 通信が成功したら、コンテンツを追加する
+      // data => {title: 'ポラーノの広場', content: 'aaaaaaaaa'}
+      console.log(data);
+      this.append(data.content);
+    }).fail( (data) => {
+      // Ajaxリクエストが失敗した時発動
+      console.log(data);
+    }).always( (data) => {
+      // Ajaxリクエストが成功・失敗どちらでも発動
+    });
+     console.log('hogenogehoge');
+   });
+});
+ </script>

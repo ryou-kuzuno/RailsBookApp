@@ -1,7 +1,10 @@
-<%# 検索結果の表示 %>
-<%= params[:title]%>
-<% @books.each do |book| %>
-   <div >
-    <%= book.author%>
-   </div>
-<% end%>
+<% if @book_not_found_message %>
+    <p>キーワードに該当するページが見つかりません</p>
+<% else %>
+ <%# 検索結果の表示 %>
+    <%= params[:title]%>
+    <% @books.each do |book| %>
+    <div >
+        <%= book.author%>
+    </div>
+    <% end%>

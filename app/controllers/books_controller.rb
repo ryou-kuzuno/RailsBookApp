@@ -74,10 +74,14 @@ class BooksController < ApplicationController
             # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
             @book = Bookstore.new(title: params["bookstore"]["title"],
                                 author: params["bookstore"]["author"],
-                                thumbnail: params["bookstore"]["thumbnailobject"],
+                                thumbnail: "default_user.jpg",
                                 user_id: @current_user.id
             )
-
+            if params[:thumbnail]
+                @book.thumbnail = "#{@book.id}.jpg"
+                thumbnail = params[:thumbnail]
+                File.binwrite("public/books_images/#{@book.thumbnail}", thumbnail.read)
+            end
             # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
             # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
             impression = @book.impressions.build(
@@ -155,9 +159,19 @@ class BooksController < ApplicationController
         search_key_word = params[:search_key]
         @books = Bookstore.where("title LIKE ?", "%#{search_key_word}%")
         if  @books.empty?
-            @message = "キーワードに該当するページが見つかりません"
-            redirect_to :action => "not_found"
+            @book_not_found_message = "キーワードに該当するページが見つかりません"
+            render "search_page"
+            # redirect_to :action => "not_found"
         end
+    end
+
+    def content
+        # @todo requestのパラメータを受け取るようにする
+        # title = 'ポラーノ広場'
+        # book = Bookstore.where(title: title)
+        # book.contentを、returnしてあげる
+        book = {title: 'ポラーノの広場', content: 'aaaaaaaaa'}
+        render :json => book
     end
 
     def not_found

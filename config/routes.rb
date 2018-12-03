@@ -11,8 +11,6 @@ Rails.application.routes.draw do
   post   "likes/create"  => "likes#create"
   post   "likes/:bookstore_id/destroy" => "likes#destroy"
 
-  post   "search"  =>  "books#search" #検索結果bookstoreから探して、見つけることができたら、贈る。
-  get    "search/:title"  =>  "books#search_page" #検索結果を表示する画面。
   get    "search/"  =>  "books#search_page" #検索結果を表示する画面。
   get    "not_found" => 'books#not_found'
 
@@ -33,6 +31,7 @@ Rails.application.routes.draw do
   get    "new"           => "books#new"#新規登録画面
   get    ":bookstore_id/edit"    => "books#edit"#編集画面 # /:bookstore_id/:impression_id/edit
   
+  get    "books/content" => "books#content"
   get    "show/:bookstore_id"    => "books#show"#詳細画面 #show/:bookstore_id/:impression_id
   get    "index"         => "books#index"
 
