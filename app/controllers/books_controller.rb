@@ -61,31 +61,21 @@ class BooksController < ApplicationController
 
     #新しい投稿を作成するアクション
     def create
-        # if @book = Bookstore.find(params[:bookstore_id])
-        # else
-            # book_idを確定させるために先に@book.saveをしておく必要がある。
-            # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
-            @book = Bookstore.new(title: params["bookstore"]["title"],
-                                author: params["bookstore"]["author"],
-                                thumbnail: "default_user.jpg",
-                                user_id: @current_user.id
-            )
-            if params[:thumbnail]
-                @book.thumbnail = "#{@book.id}.jpg"
-                thumbnail = params[:thumbnail]
-                File.binwrite("public/books_images/#{@book.thumbnail}", thumbnail.read)
-            end
-            # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
-            # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
-            impression = @book.impressions.build(
-                story: params["bookstore"]["impression"]["story"],
-                impressions: params["bookstore"]["impression"]["impressions"],
-                user_id: @current_user.id,
-                bookstore_id: @book.id
-            )
-            # raise  impression.inspect 
-        # raise @impression.inspect
-        # if @book.save
+        @book = Bookstore.new(title: params["bookstore"]["title"],
+                            author: params["bookstore"]["author"],
+                            image: params["bookstore"]["image"],
+                            user_id: @current_user.id
+        )
+
+        @book.image.attach(params[:bookstore][:image])
+        
+        impression = @book.impressions.build(
+            story: params["bookstore"]["impression"]["story"],
+            impressions: params["bookstore"]["impression"]["impressions"],
+            user_id: @current_user.id,
+            bookstore_id: @book.id
+        )
+
         if @book.save
             redirect_to "/index"
         else
