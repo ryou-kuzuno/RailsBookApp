@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get   "logout"       => "users#logout"#ログアウトする
   get    "/"         => "users#login_form"#ログイン画面
   # railsの規約に合わせると model + actionの形にroutingもしておくのがベター
-  get    "books/new"           => "books#new"#新規登録画面
+  #get    "books/new"           => "books#new"新規登録画面
   post   "books/create"        => "books#create"#本を作るアクション
   
   patch   "books/:bookstore_id/update" => "books#update"#変更を反映

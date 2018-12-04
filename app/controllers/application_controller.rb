@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
        end
     end
 
+
+
     def _footer
         @user = User.find_by(id: params[:id])
     end

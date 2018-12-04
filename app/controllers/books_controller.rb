@@ -53,10 +53,11 @@ class BooksController < ApplicationController
         # 既にあるbookstoreの情報を下地にimpressionを作りたいので、欲しいbookstoreを取得する。
         # if @book = Bookstore.find(params[:bookstore_id])
         #     @book = Bookstore.find(params[:bookstore_id])
-        # else 
+        # else
         @book = Bookstore.new
         @impression = Impression.new
     end
+
 
     #感想の編集画面のアクション
     def edit

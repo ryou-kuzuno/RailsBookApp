@@ -3,23 +3,17 @@
 <%# <% if book = Bookstore.find(params[:id])%>
   <%# <%= form_for @impression, url: { controller: :books, action: :create} do |imp| %>
   <%# <%= imp.hidden_field :user_id ,:value =>  @current_user.id%>
-    <div class="card-text">
-        <div class="story">
           <%# <%= imp.label :あらすじ %>
-          <%# <%= imp.text_area :story %>
-        </div>          
-        <div class="impressions">
+          <%# <%= imp.text_area :story %
           <%# <%= imp.label :感想 %>
-          <%# <%= imp.text_area :impressions %>
-        </div>
-    </div>
-    <div class="card-under">
+          <%# <%= imp.text_area :impressions
       <%# <%= book.submit '投稿', :onclick => "submit();"%>
       <%# book.submitだと結局submitになってしまっているので、submitパーツ以外にする %>
-      <%# <button type="button" onclick="submit();">送信</button> %>
-    </div>
+      <%# <button type="button" onclick="submit();">送信</button> 
   <%# <% end%>
-
+<div class="close-modal">
+  <p>とじます</p>
+</div>
 
 <%= form_for @book, url: { controller: :books, action: :create} do |book| %>
     <div class="card">
@@ -62,3 +56,4 @@
     </div>
     <% end%>
 <% end%> 
+
