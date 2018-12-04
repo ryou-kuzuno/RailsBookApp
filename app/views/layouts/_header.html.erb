@@ -34,21 +34,13 @@
             </div>
           </div>
     <%# user非ログイン時 %>
-    <% else%>
+    <% else %>
       <ul>
-        <li><%= link_to "新着一覧", "/index" %></li>
         <%# books#index %>
         <li><%= link_to "ログイン", "/" %></li>
          <%# users#login %>
         <li><%= link_to "新規登録", "/signup" %></li>
         <%# users#new %>
-        <li  class="search">
-        <%# 本のタイトルのみで検索できます。探しても見つからないなら、ココにはない。 %>
-          <%= form_with(url: '/search', controller: 'bookstore', action: 'search', local: true, method: :get) do |form| %>
-            <%= form.text_field :search_key %>
-            <%= form.submit '本のタイトルを検索する', :title => nil %>
-          <% end%>
-        </li>
       </ul>
     <% end%>
   </div>

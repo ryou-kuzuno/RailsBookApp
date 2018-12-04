@@ -14,12 +14,14 @@
     <%= render partial: 'layouts/header' %>
 
     <div class="write">
+      <% if !@current_user.nil? %>
         <%= render partial: 'layouts/new'%>
+      <% end %>
     </div>
 
 
     <div class="content">
-    <%= yield %>
+      <%= yield %>
     </div>
 
     <%= render partial: 'layouts/footer' %>

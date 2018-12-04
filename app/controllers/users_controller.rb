@@ -1,6 +1,20 @@
 class UsersController < ApplicationController
-  before_action :set_current_user
+    # before_action :set_current_user, only: [:show]
     before_action :ensure_correct_user, {only: [:edit, :update]}
+
+    # loginしていない場合は処理できないようにする
+    before_action :user_logged_in, only: [:show, :edit]
+
+    # # before_action :set_current_user
+
+    # # 現在ログインしているユーザーのIDを取る
+    # def set_current_user
+    #     @current_user = User.find_by(id: session[:user_id])
+
+    #     if @current_user.nil?
+    #         redirect_to root
+    #     end
+    # end
 
     def show
       @user = User.find_by(id: params[:id])
@@ -13,6 +27,7 @@ class UsersController < ApplicationController
       #   redirect_to "/index"
       # end
     end
+
     # 新規登録
     def create
       # "user"=>{"nicename"=>"kuzuno", "mail"=>"kuzuno@ryou", "password"=>"kuzuno"}, "commit"=>"新規登録 ", "controller"=>"users", "action"=>"create"}
@@ -51,7 +66,7 @@ class UsersController < ApplicationController
     end
 
     def login_form
-        @user =User.new
+      @user = User.new
     end
 
     def login

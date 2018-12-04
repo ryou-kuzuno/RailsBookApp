@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  # railsの記述に従うと、root to: を使うほうがベター
+  root to:  "users#login_form"  #ログイン画面
+  # get    "/"         => "users#login_form"#ログイン画面
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get    ':book_id/create'  => "comments#create"#投稿にコメントする
   delete ':book_id/destroy' => "comments#destroy"#投稿に対するコメントを削除する
@@ -22,7 +26,6 @@ Rails.application.routes.draw do
   get    "signup"        => "users#new"#ユーザー登録画面
   post   "login"        => "users#login"#ログインする
   get   "logout"       => "users#logout"#ログアウトする
-  get    "/"         => "users#login_form"#ログイン画面
   # railsの規約に合わせると model + actionの形にroutingもしておくのがベター
   #get    "books/new"           => "books#new"新規登録画面
   post   "books/create"        => "books#create"#本を作るアクション

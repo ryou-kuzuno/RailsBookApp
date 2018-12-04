@@ -1,9 +1,13 @@
 class BooksController < ApplicationController
-    before_action :set_current_user
+    # before_action :set_current_user
+
+
+    before_action :user_logged_in, only: [:index, :edit]
+
     #感想一覧を表示するアクション
     def index
-        @books =Bookstore.all
-        @test = Bookstore.all.last(2)
+        @books = Bookstore.all
+        @test  = Bookstore.all.last(2)
         @impressions = Impression.all
     end
 
