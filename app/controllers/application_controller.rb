@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
        end
     end
 
-
+     #新しく感想を投稿する画面のアクション
+    def new
+        @book = Bookstore.new
+        @impression = Impression.new
+    end
 
     def _footer
         @user = User.find_by(id: params[:id])

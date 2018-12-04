@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   post   "books/create"        => "books#create"#本を作るアクション
   
   patch   "books/:bookstore_id/update" => "books#update"#変更を反映
-  get    "new"           => "books#new"#新規登録画面
+  # get    "new"           => "books#new"#新規登録画面
   get    ":bookstore_id/edit"    => "books#edit"#編集画面 # /:bookstore_id/:impression_id/edit
   
   get    "books/content" => "books#content"

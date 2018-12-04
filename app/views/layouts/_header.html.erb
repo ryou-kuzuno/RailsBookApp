@@ -4,7 +4,7 @@
     <%# userログイン時に表示 %>
     <% if @current_user %>
       <ul>
-        <li class="write-modal"><%= link_to "感想を書く", "/new"%></li>　
+        <li class="write-modal">感想を書く</li>　
         <%# books#new %>
         <li><%= link_to "新着一覧", "/index" %></li>
         <%# books#index %>
@@ -55,9 +55,10 @@
 </header>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
- <script>
-$(function() {
-  // 「#login-show」要素に対するclickイベントを作成してください
+
+<script>
+ $(function() {
+  // clickイベント
   $('.write-modal').click(function(){
     $('.write').fadeIn();
   });
@@ -65,5 +66,5 @@ $(function() {
     $('.write').fadeOut();
   });
 
-});
+ });
  </script>
