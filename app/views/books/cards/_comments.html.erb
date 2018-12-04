@@ -2,20 +2,19 @@
 <%# 同じ投稿.idを持ったcommentが表示される。with_index で順番の可視化 %>
 
 <% @comments.each do |comment| %>
-    <p><%= comment.comments %></p>
+  <p><%= comment.comments %></p>
 <% end %>
 
 <div>
-    <%= form_for @new_comment  ,url: {controller: :books, action: :reply} do |form| %> 
-        <div>
-          <%= form.label :コメント %>
-          <%= form.text_field :comments %>
-          <%# 見えないけれどフォームに送信される。 %>
-          <%= form.hidden_field :user_id ,:value => @current_user.id %>
-          <%= form.hidden_field :bookstore_id ,:value => bookstore_id %>
-        </div>
-        <%# これもエンターキーかな %>
-        <%# <%= form.submit 'コメントする ' %>
-        <button type="button" onclick="submit();">送信</button>
-    <% end%>
+  <%= form_for @new_comment  ,url: {controller: :books, action: :reply} do |form| %> 
+  <div>
+    <%= form.label :コメント %>
+    <%= form.text_field :comments %>
+    <%# 見えないけれどフォームに送信される。 %>
+    <%= form.hidden_field :user_id ,:value => @current_user.id %>
+    <%= form.hidden_field :bookstore_id ,:value => bookstore_id %>
+  </div>
+    <%# <%= form.submit 'コメントする ' %>
+    <button type="button" onclick="submit();">送信</button>
+  <% end%>
 </div>

@@ -8,19 +8,19 @@
     <% end %>
 
     <%= form_for @user , url: { controller: :users, action: :create } do |form| %>
-      <div>
+      <div class="#">
         <%= form.label :ユーザー名 %>
         <%= form.text_field :nicename %>
       </div>
-      <div>
+      <div class="#">
         <%= form.label :メールアドレス %>
         <%= form.email_field :mail %>
       </div>
-      <div>
+      <div class="#">
         <%= form.label :パスワード %>
         <%= form.text_field :password %>
       </div>
-      <div>
+      <div class="#">
         <%= form.submit '新規登録 ' %>
       </div>
     <% end %>

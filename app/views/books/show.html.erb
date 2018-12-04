@@ -1,50 +1,43 @@
-<%# 本の詳細表示 %>
 <div class="card-show">
-      <div class="card-image">
-          <img src="<%= "/public/books_images/#{@book.thumbnail}" %>">
-        </div>
-      <div class="card-right">
-        <p>作者</p>
-        <%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
-        <h1><%= @book.author%></h1>
-        <p>タイトル</p>
-        <h1><%= @book.title %></h1>
-      </div>
-
-      <%#  1つの本に対して感想は複数存在する %>
-        <div class="card-text">  
-          <% @impressions.each_with_index do |impressions,index| %>
-            <p>題名</p> 
-            <%= impressions.story %>
-            <p>かんそう</p>
-            <%= impressions.impressions %>
-
+  <div class="card-image">
+    <img src="<%= "/public/books_images/#{@book.thumbnail}" %>">
+  </div>
+  <div class="card-right">
+    <p>作者</p>
+    <%# jsで動かすためのidとして区別できるように、「js」 をつけることがある %>
+    <h1><%= @book.author%></h1>
+    <p>タイトル</p>
+    <h1><%= @book.title %></h1>
+  </div>
+  <%#  1つの本に対して感想は複数存在する %>
+    <div class="card-text">  
+      <% @impressions.each_with_index do |impressions,index| %>
+        <p>題名</p> 
+        <%= impressions.story %>
+        <p>かんそう</p>
+        <%= impressions.impressions %>
           <div class="card-under"> 
             <div>
               <% if my_like = Like.find_by(impression_id: impressions.id, user_id: @current_user.id)%>
-              <%# <% if my_like find_byで取る値が間違っていた。この部分で欲しかったのはimp_id と　user_idだから、イーチの変数と現在のユーザーアイディを渡す
-              params[:impressions][:bookstore_id] では取れない%>
               <%  #メモ
                   # そもそも、link_toはリンク（aタグ）を生成するためのものなので、あまりパラメータを渡して◯◯するという用途に向かない
                   # パラメータを渡してなにか処理をする、といった場合はformを使う
                   #（ただし、form_tag / form_forは、rails5系ではform_withを使うことが多い
               %>
                 <%= link_to "/likes/#{impressions.id}/destroy",{impression_id: impressions.id  , :method => :post} do %>  <span class="material-icons hart">favorite</span>
-                  <%= impressions.likes.count %>
+                <%= impressions.likes.count %>
                 <% end %>
               <% else %>
                 <%= form_with(model: :likes, id: "js-like-form-#{index}", scope: :likes, url: likes_create_path, local: :false) do |form| %>
                   <% # メモ formのsubmitを何かしらでsubmitしないと行けない %>
-                  <% # テキストからのボタンを作り、上からスタイルを当てる%>
-                  <% # テキストからのボタンを作り、上からスタイルを当てる%>
-                  <%= form.hidden_field :user_id, :value => @current_user.id %>
+                    <%= form.hidden_field :user_id, :value => @current_user.id %>
                   <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
-                  <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
-                  <%= impressions.likes.count %> 
-                  <%= form.hidden_field :user_id, :value => @current_user.id %>
-                  <%= form.hidden_field :impression_id, :value => impressions.id %>
-                  <%= form.hidden_field :bookstore_id, :value => impressions.id %>
-                <% end %>
+                    <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
+                    <%= impressions.likes.count %>
+                    <%= form.hidden_field :user_id, :value => @current_user.id %>
+                    <%= form.hidden_field :impression_id, :value => impressions.id %>
+                    <%= form.hidden_field :bookstore_id, :value => impressions.id %>
+                  <% end %>
               <% end %>
           </div>
         </div>
@@ -69,34 +62,9 @@ $(function() {
     console.log(impressions.likes.count);
     impressions.likes.count.style.color = 'black';
   })
-
-  // var @current_user = true;
-  function addItem() {
-  if (@current_user) {
-    @current_user == user_id;
-    // ボタン自体を無効にしているので、allowAjaxが無くても実際には連続クリックできませんが...
-    $('books#show').prop('disabled', true).text('通信が終わるまで押せないよ');
-
-    $.ajax({
-      type: 'get',
-      url: './show.html'
-    })
-    .done(function(returnData) {
-      // 通信に一秒掛かるとする
-      setTimeout(function() {
-        $('.caed-under').append('<li>' + returnData + '</li>');
-        $('books#show').prop('disabled', false).text('通信開始');
-        allowAjax = true;
-      }, 1000);
-    });
-  }
-}
-})
+});
 
  </script>
-
-
-
 
 <%
 # 通常javascriptの処理は、.jsファイルに記述する。

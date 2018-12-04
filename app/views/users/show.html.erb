@@ -14,10 +14,9 @@
   </ul>
 </div>
 <%# 投稿があるなら表示 %>
-<%# <% if @impressions%>
-  <% @impressions.each do |imp| %>
-    <div class="user_story">
-      <%= link_to imp.story, "/show/#{imp.id}"%>
-    </div>
-  <% end%>
-<%# <% end%>
+<% @impressions.each do |imp| %>
+  <div class="user_story">
+    <%= link_to imp.story, "/show/#{imp.id}"%>
+  </div>
+<% end%>
+

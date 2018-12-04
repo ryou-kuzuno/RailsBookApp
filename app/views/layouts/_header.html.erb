@@ -5,16 +5,10 @@
     <% if @current_user %>
       <ul>
         <li class="write-modal">感想を書く</li>　
-        <%# books#new %>
         <li><%= link_to "新着一覧", "/index" %></li>
-        <%# books#index %>
         <li><%= link_to "お気に入り・コメント" ,"/users/#{@current_user.id}/likes" %></li>
-        <%# users#likes %>
         <li><%= link_to "#{@current_user.nicename}のまいページ", "/users/#{@current_user.id}"%></li>
-        <%# users#show %>
         <li class="search">
-        <%# url: "/search"で検索フォームに書かれたテキストを/search/#{params[:search]}にリダイレクトさせている。
-        # この時、saveをしたいが@booksには何も入っていない。params[:search]にはフォームのテキストが入っている。 %>
           <%= form_with(url: '/search', controller: 'bookstore', action: 'search', local: true, method: :get) do |form| %>
             <%= form.label :search_key, '本のタイトルを検索する' %>
             <%= form.text_field :search_key %>
@@ -22,28 +16,24 @@
           <% end%>
         </li>
       </ul>
-          <div class="hidden_box">
-            <label for="label1">設定</label>
-            <%# 隠しバー　同じulタグ内に置かないのは全部いっぺんに要素が大きくなるのを避けるため%>                 
-            <input type="checkbox" id="label1"/>
-            <div class="hidden_show">
-              <!--ここに隠す中身-->
-                <%# users#edit %>
-                <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
-                <%= link_to "ログアウトしますか？", "/logout"%>
-            </div>
+        <div class="hidden_box">
+          <label for="label1">設定</label>
+          <%# 隠しバー　同じulタグ内に置かないのは全部いっぺんに要素が大きくなるのを避けるため%>
+          <input type="checkbox" id="label1"/>
+          <div class="hidden_show">
+            <!--ここに隠す中身-->
+            <%= link_to "ユーザー設定", "/users/#{@current_user.id}/edit"%>
+            <%= link_to "ログアウトしますか？", "/logout"%>
           </div>
+        </div>
     <%# user非ログイン時 %>
     <% else%>
       <ul>
         <li><%= link_to "新着一覧", "/index" %></li>
-        <%# books#index %>
         <li><%= link_to "ログイン", "/" %></li>
-         <%# users#login %>
         <li><%= link_to "新規登録", "/signup" %></li>
-        <%# users#new %>
         <li  class="search">
-        <%# 本のタイトルのみで検索できます。探しても見つからないなら、ココにはない。 %>
+        <%# 本のタイトルのみで検索できます。 %>
           <%= form_with(url: '/search', controller: 'bookstore', action: 'search', local: true, method: :get) do |form| %>
             <%= form.text_field :search_key %>
             <%= form.submit '本のタイトルを検索する', :title => nil %>

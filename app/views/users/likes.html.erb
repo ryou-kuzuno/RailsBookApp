@@ -6,10 +6,11 @@
     <p><%= link_to("編集", "/users/#{@user.id}/edit") %></p>
   <% end %>
 </div>
+
 <div class="switch">
   <ul>
     <li><%= link_to "投稿", "/users/#{@user.id}" %></li>
-    <li class="active"><%= link_to "お気に入り", "/users/#{@user.id}/likes" %></li>
+    <li class="active"><%= link_to "押忍", "/users/#{@user.id}/likes" %></li>
   </ul>
 </div>
 
