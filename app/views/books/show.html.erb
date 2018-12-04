@@ -40,7 +40,7 @@
                   <%= form.hidden_field :user_id, :value => @current_user.id %>
                   <% # 使っているcssライブラリ上の特性上、form-buttonにデザインを当てることが難しいので、既存のspanを使いまわしつつ、jsでsubmitを発火させる%>
                   <span class="material-icons hart" onClick='fireLikeSubmit("<%= "js-like-form-#{index}" %>")'>favorite</span>  
-                  <%= impressions.likes.count %>
+                  <%= impressions.likes.count %> 
                   <%= form.hidden_field :user_id, :value => @current_user.id %>
                   <%= form.hidden_field :impression_id, :value => impressions.id %>
                   <%= form.hidden_field :bookstore_id, :value => impressions.id %>
@@ -61,6 +61,43 @@
 
 <% # イコールがないと表示されない。なんか別の書き方　→　render :partial => "post.html.erb", :collection => Post.all, :locals => { :bgcolor => "#ffe6e6" } %>
 <%= render partial: 'books/cards/comments', locals: { comments: @comments, new_comment: @new_comment, bookstore_id: @book.id } %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ <script>
+$(function() {
+  $('.material-icons').on('click', function() {
+    console.log(impressions.likes.count);
+    impressions.likes.count.style.color = 'black';
+  })
+
+  // var @current_user = true;
+  function addItem() {
+  if (@current_user) {
+    @current_user == user_id;
+    // ボタン自体を無効にしているので、allowAjaxが無くても実際には連続クリックできませんが...
+    $('books#show').prop('disabled', true).text('通信が終わるまで押せないよ');
+
+    $.ajax({
+      type: 'get',
+      url: './show.html'
+    })
+    .done(function(returnData) {
+      // 通信に一秒掛かるとする
+      setTimeout(function() {
+        $('.caed-under').append('<li>' + returnData + '</li>');
+        $('books#show').prop('disabled', false).text('通信開始');
+        allowAjax = true;
+      }, 1000);
+    });
+  }
+}
+
+$('.material-icons').on('click', function() {
+  addItem();
+});
+})
+
+ </script>
 
 
 
