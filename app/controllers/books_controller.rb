@@ -52,10 +52,10 @@ class BooksController < ApplicationController
     end
 
     #新しく感想を投稿する画面のアクション
-    # def new
-    #   @book = Bookstore.new
-    #   @impression = Impression.new
-    # end
+    def new
+      @book = Bookstore.new
+      @impression = Impression.new
+    end
 
     #感想の編集画面のアクション
     def edit
