@@ -3,10 +3,12 @@
   <div class="card-poket">
     <div class="card">
         <%# 備忘録。画像も表示させたいという忘れないように。%>
-        <div class="card-image">
-          <img src="<%= "/public/books_images/#{book.thumbnail}" %>">
-        </div>
-          
+        <% if book.image.attached? %>
+          <div class="card-image">
+            <%= image_tag book.image %>
+          </div>
+        <% end %> 
+
         <div class="card-right">
           <div class="title">
           <p>タイトル</p>

@@ -1,6 +1,5 @@
 class BooksController < ApplicationController
-    # before_action :set_current_user
-    before_action :user_logged_in, only: [:index, :edit]
+    before_action :user_logged_in, only: [:index, :show, :create, :edit]
 
 
     #感想一覧を表示するアクション
@@ -70,14 +69,11 @@ class BooksController < ApplicationController
       # ただし、@impression.saveが失敗した場合は、@book.saveの保存もなかったことにしたい
       @book = Bookstore.new(title: params["bookstore"]["title"],
         author: params["bookstore"]["author"],
-        thumbnail: "default_user.jpg",
+        image: params["bookstore"]["image"],
         user_id: @current_user.id
       )
-      if params[:thumbnail]
-        @book.thumbnail = "#{@book.id}.jpg"
-        thumbnail = params[:thumbnail]
-        File.binwrite("public/books_images/#{@book.thumbnail}", thumbnail.read)
-      end
+      @book.image.attach(params[:bookstore][:image])
+
       # bookstore.rb にて、has_many で impressions を指定しているので、@book起点でimpressionsを作成（build）することができる
       # buildはcreateに近いが、databaseにはこのタイミングで保存されない、という違いがある。
       impression = @book.impressions.build(

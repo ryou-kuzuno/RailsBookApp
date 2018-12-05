@@ -10,6 +10,54 @@
     padding: 30px 10px;
     margin: 10px;
     font-weight: bold;
+    img  {
+        display: inline-block;
+        width: 100px;
+        margin: 0px;
+        padding: 0px;
+    }
+    .card-right {
+        background-color: white;
+        .title {
+            color: red;
+            padding: 15px;
+            margin: 15px;
+            font-size: 25px;
+        }
+        .author {
+            color: blue;
+            padding: 15px;
+            margin: 15px;
+            font-size: 25px;
+        }
+        p {
+            font-size: 30px;
+        }
+    }
+    
+    .card-text {
+        p {
+            text-align: center;
+            font-size: 25px;
+        }
+    
+        .story {
+            background-color: #e0e7e8;
+            padding: 5px;
+            margin: 5px;
+        }
+        .impressions {
+            background-color: #e0e7e8;
+            padding: 5px;
+            margin: 5px;
+        }
+    }
+    .card-under {
+        clear: both; //回避？
+        :hover{
+            color: yellow;
+        }
+    }
 }
 
 .card-show {
@@ -22,51 +70,6 @@
     background-color: white;
 }
 
-.card-img {
-    display: inline-block;
-    width: 100px;
-    margin: 0px;
-    padding: 0px;
-
-}
-
-.card-right {
-    background-color: white;
-    .title {
-        color: red;
-        padding: 15px;
-        margin: 15px;
-        font-size: 25px;
-    }
-    .author {
-        color: blue;
-        padding: 15px;
-        margin: 15px;
-        font-size: 25px;
-    }
-    p {
-        font-size: 30px;
-    }
-}
-
-.card-text {
-    p {
-        text-align: center;
-        font-size: 25px;
-    }
-
-    .story {
-        background-color: #e0e7e8;
-        padding: 5px;
-        margin: 5px;
-    }
-    .impressions {
-        background-color: #e0e7e8;
-        padding: 5px;
-        margin: 5px;
-    }
-}
-
 .card-brock {
     display: block;
 }
@@ -76,10 +79,4 @@
     padding: 10px;
     margin: 5px 18px 5px 5px;
     width: 90%;
-}
-.card-under {
-    clear: both; //回避？
-    :hover{
-        color: yellow;
-    }
 }
