@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     private
 
     def bookstore_params
-      params.require(:bookstore).permit(:title, :author)
+      params.require(:bookstore).permit(:title, :author,:image)
     end
 
 end

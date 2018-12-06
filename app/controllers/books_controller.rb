@@ -82,14 +82,6 @@ class BooksController < ApplicationController
         user_id: @current_user.id,
         bookstore_id: @book.id
       )
-      if @book.save
-        redirect_to "/index"
-    #   else
-        # 必要に応じてエラーメッセージを付与して上げる （sessionなど使うと良い
-        # # urlもbook/newに変更したいのでredirect_toを使ってい
-        # @book.destroy
-        # render 'books/new'
-      end
     end
 
     #投稿の編集内容を反映するアクション
